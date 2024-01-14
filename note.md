@@ -7,7 +7,8 @@
    `if ...: l += 1` and
    `if ...: r -= 1`
 3. program ends with left pointer next to the right pointer
-   ![Two Pointer Visualiation](twoPointers.jpg)
+
+![Two Pointer Visualiation](twoPointers.jpg)
 
 # Stack
 **last in first out**
