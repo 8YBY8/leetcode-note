@@ -10,3 +10,17 @@
    ![Two Pointer Visualiation](twoPointers.jpg)
 
 # Stack
+**last in first out**
+
+1. To make a stack: `stack = []`
+2. Add a value:`stack.append(value)`. Add a pair `stack.append([index, value])`
+3. Remove last value: `stack.pop()`
+
+
+
+enumerate() means get the index and value at the same time
+
+`pair: [temp, index]` To make a pair 
+
+stack[-1] get the top of the stack
+
