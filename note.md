@@ -27,3 +27,9 @@ stack[-1] get the top of the stack
 
 
 # Linked List
+
+make a linker list: `ll = {}`
+It has val and node
+
+1. create slow and fast pointer: `slow, fast = head, head`
+2. in the looping, update these by `slow = slow.next` and `fast = fast.next.next`
