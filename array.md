@@ -93,3 +93,24 @@ class Solution:
             i -= 1
         return res
 ```
+
+# 第一章  数组part02
+## 209. Minimum Size Subarray Sum
+https://leetcode.com/problems/minimum-size-subarray-sum/description/
+文章讲解：https://programmercarl.com/0209.%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84.html
+视频讲解：https://www.bilibili.com/video/BV1tZ4y1q7XE
+```python
+class Solution:
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        l, r = 0, 0
+        minLen = float('inf')
+        sumOfWid = 0
+        while r <= len(nums) - 1:
+            sumOfWid = sumOfWid + nums[r]
+            while sumOfWid >= target:
+                minLen = min(minLen, r - l + 1)
+                sumOfWid -= nums[l]
+                l += 1
+            r += 1
+        return minLen if minLen != float('inf') else 0
+```
