@@ -205,3 +205,11 @@ class Solution:
             nums[mid][mid] = count 
         return nums
 ```
+
+
+## 总结
+数组：1. 下标都是从0开始的。2. 内存空间的地址是连续的。
+二分法: left pointer and right pointer. `mid = left + (right - left) // 2 in Python`
+双指针法（快慢指针法）：通过一个快指针和慢指针在一个for循环下完成两个for循环的工作。
+滑动窗口: 滑动窗口的精妙之处在于根据当前子序列和大小的情况，不断调节子序列的起始位置。从而将O(n^2)的暴力解法降为O(n)
+
