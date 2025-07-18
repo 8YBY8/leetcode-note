@@ -3,7 +3,9 @@ https://programmercarl.com/%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%8
 
 ## 704. Binary Search
 https://leetcode.com/problems/binary-search/description/
+
 文章讲解：https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html
+
 视频讲解：https://www.bilibili.com/video/BV1fA4y1o715
 
 Method 1: [l, r]
@@ -41,7 +43,9 @@ class Solution:
 
 ## 27. Remove Element
 https://leetcode.com/problems/remove-element/description/
+
 文章讲解：https://programmercarl.com/0027.%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0.html
+
 视频讲解：https://www.bilibili.com/video/BV12A4y1Z7LP
 
 ```python
@@ -62,7 +66,9 @@ class Solution:
 
 ## 977. Squares of a Sorted Array
 https://leetcode.com/problems/squares-of-a-sorted-array/description/
+
 文章讲解：https://programmercarl.com/0977.%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E5%B9%B3%E6%96%B9.html
+
 视频讲解： https://www.bilibili.com/video/BV1QB4y1D7ep 
 
 
@@ -96,8 +102,10 @@ class Solution:
 
 # 第一章  数组part02
 ## 209. Minimum Size Subarray Sum
-https://leetcode.com/problems/minimum-size-subarray-sum/description/
-文章讲解：https://programmercarl.com/0209.%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84.html
+https://leetcode.com/problems/minimum-size-subarray-sum/description/ 
+
+文章讲解：https://programmercarl.com/0209.%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84.html 
+
 视频讲解：https://www.bilibili.com/video/BV1tZ4y1q7XE
 ```python
 class Solution:
@@ -113,4 +121,87 @@ class Solution:
                 l += 1
             r += 1
         return minLen if minLen != float('inf') else 0
+```
+
+# 59. Spiral Matrix II
+https://leetcode.com/problems/spiral-matrix-ii/description/
+
+文章讲解：https://programmercarl.com/0059.%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5II.html
+
+视频讲解：https://www.bilibili.com/video/BV1SL4y1N7mV/
+
+<img width="314" height="238" alt="image" src="https://github.com/user-attachments/assets/be6d1f08-3136-474a-a75f-609ceaa92c0c" />
+
+Method 1:
+```python
+class Solution:
+    def generateMatrix(self, n: int) -> List[List[int]]:
+        if n <= 0:
+            return []
+        
+        # 初始化 n x n 矩阵
+        matrix = [[0]*n for _ in range(n)]
+
+        # 初始化边界和起始值
+        top, bottom, left, right = 0, n-1, 0, n-1
+        num = 1
+
+        while top <= bottom and left <= right:
+            # 从左到右填充上边界
+            for i in range(left, right + 1):
+                matrix[top][i] = num
+                num += 1
+            top += 1
+
+            # 从上到下填充右边界
+            for i in range(top, bottom + 1):
+                matrix[i][right] = num
+                num += 1
+            right -= 1
+
+            # 从右到左填充下边界
+
+            for i in range(right, left - 1, -1):
+                matrix[bottom][i] = num
+                num += 1
+            bottom -= 1
+
+            # 从下到上填充左边界
+
+            for i in range(bottom, top - 1, -1):
+                matrix[i][left] = num
+                num += 1
+            left += 1
+
+        return matrix
+```
+
+Method 2:
+```python
+class Solution:
+    def generateMatrix(self, n: int) -> List[List[int]]:
+        nums = [[0] * n for _ in range(n)]
+        startx, starty = 0, 0               # 起始点
+        loop, mid = n // 2, n // 2          # 迭代次数、n为奇数时，矩阵的中心点
+        count = 1                           # 计数
+
+        for offset in range(1, loop + 1) :      # 每循环一层偏移量加1，偏移量从1开始
+            for i in range(starty, n - offset) :    # 从左至右，左闭右开
+                nums[startx][i] = count
+                count += 1
+            for i in range(startx, n - offset) :    # 从上至下
+                nums[i][n - offset] = count
+                count += 1
+            for i in range(n - offset, starty, -1) : # 从右至左
+                nums[n - offset][i] = count
+                count += 1
+            for i in range(n - offset, startx, -1) : # 从下至上
+                nums[i][starty] = count
+                count += 1                
+            startx += 1         # 更新起始点
+            starty += 1
+
+        if n % 2 != 0 :			# n为奇数时，填充中心点
+            nums[mid][mid] = count 
+        return nums
 ```
