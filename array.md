@@ -123,7 +123,7 @@ class Solution:
         return minLen if minLen != float('inf') else 0
 ```
 
-# 59. Spiral Matrix II
+## 59. Spiral Matrix II
 https://leetcode.com/problems/spiral-matrix-ii/description/
 
 文章讲解：https://programmercarl.com/0059.%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5II.html
@@ -206,6 +206,86 @@ class Solution:
         return nums
 ```
 
+## 区间和
+https://kamacoder.com/problempage.php?pid=1070
+文章讲解：https://www.programmercarl.com/kamacoder/0058.%E5%8C%BA%E9%97%B4%E5%92%8C.html
+
+```
+题目描述
+
+给定一个整数数组 Array，请计算该数组在每个指定区间内元素的总和。
+
+输入描述
+
+第一行输入为整数数组 Array 的长度 n，接下来 n 行，每行一个整数，表示数组的元素。随后的输入为需要计算总和的区间，直至文件结束。
+
+输出描述
+
+输出每个指定区间内元素的总和。
+
+输入示例
+
+5
+1
+2
+3
+4
+5
+0 1
+1 3
+输出示例
+
+3
+9
+```
+
+前缀和的思想是重复利用计算过的子数组之和，从而降低区间查询需要累加计算的次数。前缀和 在涉及计算区间和的问题时非常有用！例如，我们要统计 vec[i] 这个数组上的区间和。我们先做累加，即 p[i] 表示 下标 0 到 i 的 vec[i] 累加 之和
+<img width="934" height="484" alt="image" src="https://github.com/user-attachments/assets/4ddb7b25-f197-462c-8e8e-f23c71a79b34" />
+
+<img width="884" height="502" alt="image" src="https://github.com/user-attachments/assets/0bd10995-770f-4c0c-91a0-9e7d65e59801" />
+
+在vec数组上 下标 2 到下标 5 之间的累加和 = p[5] - p[1] 
+
+```python
+import sys
+input = sys.stdin.read
+
+def main():
+    data = input().split()
+    index = 0
+    n = int(data[index])
+    index += 1
+    vec = []
+    for i in range(n):
+        vec.append(int(data[index + i]))
+    index += n
+
+    p = [0] * n
+    presum = 0
+    for i in range(n):
+        presum += vec[i]
+        p[i] = presum
+
+    results = []
+    while index < len(data):
+        a = int(data[index])
+        b = int(data[index + 1])
+        index += 2
+
+        if a == 0:
+            sum_value = p[b]
+        else:
+            sum_value = p[b] - p[a - 1]
+
+        results.append(sum_value)
+
+    for result in results:
+        print(result)
+
+if __name__ == "__main__":
+    main()
+
+```
 
 ## 总结
 数组：1. 下标都是从0开始的。2. 内存空间的地址是连续的。
