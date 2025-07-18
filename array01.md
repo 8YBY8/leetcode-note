@@ -7,7 +7,7 @@ https://leetcode.com/problems/binary-search/description/
 视频讲解：https://www.bilibili.com/video/BV1fA4y1o715
 
 Method 1: [l, r]
-`
+```python
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
         l, r = 0, len(nums) - 1
@@ -20,10 +20,11 @@ class Solution:
             else: # nums[mid] == target
                 return mid
         return -1
-`
+```
 
 Method 2: [l, r)
-`class Solution:
+```python
+class Solution:
     def search(self, nums: List[int], target: int) -> int:
         l, r = 0, len(nums) # [l, r)
         while l < r:
@@ -35,13 +36,15 @@ Method 2: [l, r)
             else:
                 return mid
         
-        return -1`
+        return -1
+```
 
 ## 27. Remove Element
 https://leetcode.com/problems/remove-element/description/
 文章讲解：https://programmercarl.com/0027.%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0.html
 视频讲解：https://www.bilibili.com/video/BV12A4y1Z7LP
 
+```python
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
         # 快慢指针
@@ -55,7 +58,7 @@ class Solution:
                 slow += 1
             fast += 1
         return slow
-
+```
 
 ## 977. Squares of a Sorted Array
 https://leetcode.com/problems/squares-of-a-sorted-array/description/
@@ -64,6 +67,7 @@ https://leetcode.com/problems/squares-of-a-sorted-array/description/
 
 
 Method 1: 暴力
+```python
 class Solution:
     def sortedSquares(self, nums: List[int]) -> List[int]:
         for i in range(len(nums)):
@@ -71,8 +75,9 @@ class Solution:
             # print(nums[i])
         
         return sorted(nums)
-
+```
 Method 2: two pointer
+```python
 class Solution:
     def sortedSquares(self, nums: List[int]) -> List[int]:
         res = [float('inf')] * len(nums)
@@ -87,3 +92,4 @@ class Solution:
                 l += 1
             i -= 1
         return res
+```
