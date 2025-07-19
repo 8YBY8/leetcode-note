@@ -261,7 +261,7 @@ class Solution:
         # 快指针比慢指针快 n 步
         for _ in range(n):
             fast = fast.next
-        # 移动两个指针，直到快速指针到达链表的末尾
+        # 移动两个指针，直到快速指针到达链表的最后一个非NULL的node
         while fast.next:
             slow = slow.next
             fast = fast.next
