@@ -338,3 +338,50 @@ class Solution:
                 curB = curB.next
         return None 
 ```
+
+## 142. Linked List Cycle II
+
+https://leetcode.com/problems/linked-list-cycle-ii/
+
+文章链接: https://programmercarl.com/0142.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8II.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV1if4y1d7ob/?vd_source=dfe4be3e1289aa3263c6243a52315d05
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        slow = head
+        fast = head
+        
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            
+            # If there is a cycle, the slow and fast pointers will eventually meet
+            if slow == fast:
+                # Move one of the pointers back to the start of the list
+                slow = head
+                while slow != fast:
+                    slow = slow.next
+                    fast = fast.next
+                return slow
+        # If there is no cycle, return None
+        return None
+```
+
+
+# 总结
+
+对于链表的题目，使用用虚拟头结点，什么时候不用虚拟头结点？：一般涉及到 增删改操作，用虚拟头结点都会方便很多， 如果只能查的话，用不用虚拟头结点都差不多。当每次对应头结点的情况都要单独处理，使用虚拟头结点的技巧。
+
+链表的种类主要为：单链表，双链表，循环链表
+
+链表的存储方式：链表的节点在内存中是分散存储的，通过指针连在一起
+
+<img width="1269" height="845" alt="image" src="https://github.com/user-attachments/assets/e799889f-bd5b-4fb9-a288-fa6e0b080ebb" />
