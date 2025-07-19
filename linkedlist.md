@@ -236,3 +236,38 @@ class Solution:
          
         return cur
 ```
+
+## 19. Remove Nth Node From End of List
+
+https://leetcode.com/problems/remove-nth-node-from-end-of-list/submissions/1703306875/
+
+文章链接：https://programmercarl.com/0019.%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E8%8A%82%E7%82%B9.html
+
+视频链接：https://www.bilibili.com/video/BV1vW4y1U7Gf
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        # 创建一个虚拟节点，并将其下一个指针设置为链表的头部
+        dummyNode = ListNode(0, next=head)
+        # 创建两个指针，慢指针和快指针，并将它们初始化为虚拟节点
+        fast, slow = dummyNode, dummyNode
+
+        # 快指针比慢指针快 n 步
+        for _ in range(n):
+            fast = fast.next
+        # 移动两个指针，直到快速指针到达链表的末尾
+        while fast.next:
+            slow = slow.next
+            fast = fast.next
+
+        # 通过更新第 (n-1) 个节点的 next 指针删除第 n 个节点
+        slow.next = slow.next.next
+
+        return dummyNode.next
+```
