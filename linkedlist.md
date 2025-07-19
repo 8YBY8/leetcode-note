@@ -271,3 +271,70 @@ class Solution:
 
         return dummyNode.next
 ```
+
+## 160. Intersection of Two Linked Lists
+
+https://leetcode.com/problems/intersection-of-two-linked-lists/
+
+文章链接：https://programmercarl.com/%E9%9D%A2%E8%AF%95%E9%A2%9802.07.%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4.html#%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC
+
+Method 1: 我走过你走过的路，只为和你相拥。
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        # p1 指向 A 链表头结点，p2 指向 B 链表头结点
+        p1, p2 = headA, headB
+        while p1 != p2:
+            # p1 走一步，如果走到 A 链表末尾，转到 B 链表
+            # p1 = p1.next if p1 else headB
+            if p1:
+                p1 = p1.next
+            else:
+                p1 = headB
+            # p2 走一步，如果走到 B 链表末尾，转到 A 链表
+            # p2 = p2.next if p2 else headA
+            if p2:
+                p2 = p2.next
+            else:
+                p2 = headA
+        return p1
+```
+
+Method 2: 求长度，同时出发
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        lenA, lenB = 0, 0
+        curA, curB = headA, headB
+        while curA:         # 求链表A的长度
+            curA = curA.next 
+            lenA += 1
+        while curB:         # 求链表B的长度
+            curB = curB.next 
+            lenB += 1
+        curA, curB = headA, headB
+        if lenA > lenB:     # 让curB为最长链表的头，lenB为其长度
+            curA, curB = curB, curA
+            lenA, lenB = lenB, lenA 
+        for _ in range(lenB - lenA):  # 让curA和curB在同一起点上（末尾位置对齐）
+            curB = curB.next 
+        while curA:         #  遍历curA 和 curB，遇到相同则直接返回
+            if curA == curB:
+                return curA
+            else:
+                curA = curA.next 
+                curB = curB.next
+        return None 
+```
