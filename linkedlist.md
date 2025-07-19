@@ -140,3 +140,31 @@ class MyLinkedList:
 # obj.addAtIndex(index,val)
 # obj.deleteAtIndex(index)
 ```
+
+
+## 206. Reverse Linked List
+
+https://leetcode.com/problems/reverse-linked-list/description/
+
+文章链接：https://programmercarl.com/0206.%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV1nB4y1i7eL/
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        prev = None
+        curr = head
+        while curr:
+            nxt = curr.next # 保存一下cur的下一个节点，因为接下来要改变cur.next
+            curr.next = prev # 反转
+            # 更新pre、cur指针
+            prev = curr
+            curr = nxt
+        return prev
+```
