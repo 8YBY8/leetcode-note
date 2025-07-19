@@ -35,3 +35,108 @@ class ListNode:
 
 链表的特性和数组的特性性能分析
 <img width="984" height="400" alt="image" src="https://github.com/user-attachments/assets/e87ad824-6a44-45bd-8a3c-0e8d3fb331ec" />
+
+
+## 203. Remove Linked List Elements
+https://leetcode.com/problems/remove-linked-list-elements/description/
+
+文章链接：https://programmercarl.com/0203.%E7%A7%BB%E9%99%A4%E9%93%BE%E8%A1%A8%E5%85%83%E7%B4%A0.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV18B4y1s7R9
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
+        # 创建虚拟头部节点以简化删除过程
+        dummy_head = ListNode(next = head)
+        
+        # 遍历列表并删除值为val的节点
+        current = dummy_head
+        while current.next:
+            if current.next.val == val:
+                current.next = current.next.next
+            else:
+                current = current.next
+        
+        return dummy_head.next
+```
+
+## 707. Design Linked List
+
+https://leetcode.com/problems/design-linked-list/description/
+
+文章链接：https://programmercarl.com/0707.%E8%AE%BE%E8%AE%A1%E9%93%BE%E8%A1%A8.html#%E6%80%9D%E8%B7%AF
+
+视频链接：https://www.bilibili.com/video/BV1FU4y1X7WD/?vd_source=dfe4be3e1289aa3263c6243a52315d05
+```python
+# 定义链表节点结构体
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class MyLinkedList:
+    # 初始化链表
+    def __init__(self):
+        self.dummy_head = ListNode() # 这里定义的头结点 是一个虚拟头结点，而不是真正的链表头结点
+        self.size = 0
+    # 获取到第index个节点数值，如果index是非法数值直接返回-1， 注意index是从0开始的，第0个节点就是头结点
+    def get(self, index: int) -> int:
+        if index < 0 or index >= self.size:
+            return -1
+        
+        current = self.dummy_head.next
+        for i in range(index):
+            current = current.next
+            
+        return current.val
+    # 在链表最前面插入一个节点，插入完成后，新插入的节点为链表的新的头结点
+    def addAtHead(self, val: int) -> None:
+        self.dummy_head.next = ListNode(val, self.dummy_head.next)
+        self.size += 1
+    # 在链表最后面添加一个节点
+    def addAtTail(self, val: int) -> None:
+        current = self.dummy_head
+        while current.next:
+            current = current.next
+        current.next = ListNode(val)
+        self.size += 1
+    # 在第index个节点之前插入一个新节点，例如index为0，那么新插入的节点为链表的新头节点。
+    # 如果index 等于链表的长度，则说明是新插入的节点为链表的尾结点
+    # 如果index大于链表的长度，则返回空
+    # 如果index小于0，则在头部插入节点
+    def addAtIndex(self, index: int, val: int) -> None:
+        if index < 0 or index > self.size:
+            return
+        
+        current = self.dummy_head
+        for i in range(index):
+            current = current.next
+        current.next = ListNode(val, current.next)
+        self.size += 1
+    # 删除第index个节点，如果index 大于等于链表的长度，直接return，注意index是从0开始的
+    def deleteAtIndex(self, index: int) -> None:
+        if index < 0 or index >= self.size:
+            return
+        
+        current = self.dummy_head
+        for i in range(index):
+            current = current.next
+        current.next = current.next.next
+        self.size -= 1
+        
+
+
+# Your MyLinkedList object will be instantiated and called as such:
+# obj = MyLinkedList()
+# param_1 = obj.get(index)
+# obj.addAtHead(val)
+# obj.addAtTail(val)
+# obj.addAtIndex(index,val)
+# obj.deleteAtIndex(index)
+```
