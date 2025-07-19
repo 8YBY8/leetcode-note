@@ -168,3 +168,42 @@ class Solution:
             curr = nxt
         return prev
 ```
+
+# 链表part02
+
+## 24. Swap Nodes in Pairs
+
+https://leetcode.com/problems/swap-nodes-in-pairs/description/
+
+文章链接：https://programmercarl.com/0024.%E4%B8%A4%E4%B8%A4%E4%BA%A4%E6%8D%A2%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV1YT411g7br/?vd_source=dfe4be3e1289aa3263c6243a52315d05
+
+<img width="1456" height="456" alt="image" src="https://github.com/user-attachments/assets/687ac4b4-e7b8-4f1c-9a05-704f6a2974d8" />
+
+<img width="1442" height="462" alt="image" src="https://github.com/user-attachments/assets/7f45ae00-fb09-44a6-b3a0-f6902a0bcb76" />
+
+<img width="1588" height="346" alt="image" src="https://github.com/user-attachments/assets/d52edba2-5833-4314-a46f-052e005e6be9" />
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        dummy_head = ListNode(next=head)
+        current = dummy_head
+        
+        # 必须有cur的下一个和下下个才能交换，否则说明已经交换结束了
+        while current.next and current.next.next:
+            temp = current.next # 防止节点修改
+            temp1 = current.next.next.next
+            
+            current.next = current.next.next
+            current.next.next = temp
+            temp.next = temp1
+            current = current.next.next
+        return dummy_head.next
+```
