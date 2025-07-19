@@ -198,12 +198,13 @@ class Solution:
         
         # 必须有cur的下一个和下下个才能交换，否则说明已经交换结束了
         while current.next and current.next.next:
-            temp = current.next # 防止节点修改
-            temp1 = current.next.next.next
+            temp = current.next # 防止节点修改 1
+            temp1 = current.next.next.next # 3
             
-            current.next = current.next.next
-            current.next.next = temp
-            temp.next = temp1
-            current = current.next.next
+            current.next = current.next.next # 步骤一：cur->2
+            current.next.next = temp # 步骤二：2->1
+            temp.next = temp1 # 步骤三：1->3
+            # 更新curr
+            current = current.next.next # curr = 1
         return dummy_head.next
 ```
