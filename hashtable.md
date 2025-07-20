@@ -84,3 +84,38 @@ class Solution:
             new_num += r ** 2
         return new_num
 ```
+
+## 1. Two Sum
+
+https://leetcode.com/problems/two-sum/
+
+文章链接：https://programmercarl.com/0001.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C.html#%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC
+
+视频链接：https://www.bilibili.com/video/BV1ba411S7wu/
+
+什么时候使用哈希法map{}：当我们需要查询一个元素是否出现过，或者一个元素是否在集合里的时候，就要第一时间想到哈希法
+
+因为本题，我们不仅要知道元素有没有遍历过，还要知道这个元素对应的下标，需要使用 key value结构来存放，key来存元素，value来存下标，那么使用map正合适。
+
+再来看一下使用数组和set来做哈希法的局限。
+- 数组的大小是受限制的，而且如果元素很少，而哈希值太大会造成内存空间的浪费。
+- set是一个集合，里面放的元素只能是一个key，而两数之和这道题目，不仅要判断y是否存在而且还要记录y的下标位置，因为要返回x 和 y的下标。所以set 也不能用
+
+map中的存储结构为 {key：数据元素，value：数组元素对应的下标}
+在遍历数组的时候，只需要向map去查询是否有和目前遍历元素匹配的数值，如果有，就找到的匹配对，如果没有，就把目前遍历的元素放进map中，因为map存放的就是我们访问过的元素。
+
+```python
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        #创建一个集合来存储我们目前看到的数字
+        prevMap = {}  # val -> index
+        for i, n in enumerate(nums):
+            diff = target - n
+            if diff in prevMap:
+                return [prevMap[diff], i]
+            prevMap[n] = i
+```
+
+# 总结
+
+什么时候使用哈希法map{}：当我们需要查询一个元素是否出现过，或者一个元素是否在集合里的时候，就要第一时间想到哈希法
