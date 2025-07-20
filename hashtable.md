@@ -116,6 +116,34 @@ class Solution:
             prevMap[n] = i
 ```
 
+## 454. 4Sum II
+
+https://leetcode.com/problems/4sum-ii/
+
+文章链接：https://programmercarl.com/0454.%E5%9B%9B%E6%95%B0%E7%9B%B8%E5%8A%A0II.html
+
+视频链接：https://www.bilibili.com/video/BV1Md4y1Q7Yh
+
+```python
+class Solution:
+    def fourSumCount(self, nums1: List[int], nums2: List[int], nums3: List[int], nums4: List[int]) -> int:
+        temp = {} # store the [nums1[i] + nums2[j], n]
+        count = 0
+
+        # 遍历nums1和nums2，把nums1[i] + nums2[j]的个数存到temp里
+        for n1 in nums1:
+            for n2 in nums2:
+                temp[n1 + n2] = temp.get(n1 + n2, 0) + 1
+
+        # 如果 -(n1+n2) 存在于nums3和nums4, 存入结果    
+        for n3 in nums3:
+            for n4 in nums4:
+                if (- n3 - n4) in temp:
+                    count += temp.get(- n3 - n4, 0)
+                
+        return count
+```
+
 # 总结
 
 什么时候使用哈希法map{}：当我们需要查询一个元素是否出现过，或者一个元素是否在集合里的时候，就要第一时间想到哈希法
