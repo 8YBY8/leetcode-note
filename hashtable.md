@@ -146,6 +146,32 @@ class Solution:
         return count
 ```
 
+## 383. Ransom Note
+
+https://leetcode.com/problems/ransom-note/
+
+文章链接：https://programmercarl.com/0383.%E8%B5%8E%E9%87%91%E4%BF%A1.html#%E6%80%9D%E8%B7%AF
+
+```python
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        if len(ransomNote) > len(magazine):
+            return False
+
+        counts = {}
+        # 通过record数据记录 magazine里各个字符出现次数
+        for c in magazine:
+            counts[c] = counts.get(c, 0) + 1
+        # 遍历ransomNote，在record里对应的字符个数做一一操作
+        for c in ransomNote:
+            if c not in counts or counts[c] == 0:
+                return False
+            counts[c] -= 1
+        return True
+```
+
+## 
+
 # 总结
 
 什么时候使用哈希法map{}：当我们需要查询一个元素是否出现过，或者一个元素是否在集合里的时候，就要第一时间想到哈希法
