@@ -178,6 +178,9 @@ https://leetcode.com/problems/3sum/
 
 视频链接：https://www.bilibili.com/video/BV1GW4y127qo
 
+![3Sum gif](https://file1.kamacoder.com/i/algo/15.%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C.gif)
+
+
 ```python
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
