@@ -301,6 +301,9 @@ class Solution:
 
 # 总结
 
+代码思路哈希表part02 
+https://blog.csdn.net/m0_62575233/article/details/127380246?csdn_share_tail=%7B%22type%22%3A%22blog%22%2C%22rType%22%3A%22article%22%2C%22rId%22%3A%22127380246%22%2C%22source%22%3A%22m0_62575233%22%7D
+
 什么时候使用哈希法map{}：当我们需要查询一个元素是否出现过，或者一个元素是否在集合里的时候，就要第一时间想到哈希法
 
 哈希函数是把传入的key映射到符号表的索引上。
@@ -311,3 +314,4 @@ class Solution:
 - 数组
 - set（集合）
 - map（映射）
+
