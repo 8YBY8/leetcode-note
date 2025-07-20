@@ -126,6 +126,10 @@ https://leetcode.com/problems/4sum-ii/
 
 视频链接：https://www.bilibili.com/video/BV1Md4y1Q7Yh
 
+- 第一步：创建Map数组集合，key用来存放前两个数组的元素和，value用来存放和出现过的次数
+- 第二步：遍历前两个数组，将和：出现过的次数存放发哦Map集合中
+- 第三步：遍历后两个数组，将满足条件的情况记录到result中。
+
 ```python
 class Solution:
     def fourSumCount(self, nums1: List[int], nums2: List[int], nums3: List[int], nums4: List[int]) -> int:
@@ -151,6 +155,10 @@ class Solution:
 https://leetcode.com/problems/ransom-note/
 
 文章链接：https://programmercarl.com/0383.%E8%B5%8E%E9%87%91%E4%BF%A1.html#%E6%80%9D%E8%B7%AF
+
+- 第一步：创建Map集合
+- 第二步：遍历magazine，记录字符和每个字符出现次数
+- 第三步：遍历ransomNote，将Map集合中对应字符出现的次数减去，如果出现了次数<0的字符，就返回false
 
 ```python
 class Solution:
@@ -180,6 +188,13 @@ https://leetcode.com/problems/3sum/
 
 ![3Sum gif](https://file1.kamacoder.com/i/algo/15.%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C.gif)
 
+- 第一步：创建接收集合，对数组进行排序
+- 第二步：遍历数组，有了指针i
+- 第三步：对指针 i 进行去重操作
+- 第四步：创建left 和 right 指针
+- 第五步：移动指针，找到符合条件的元素
+- 第六步：如果找到，收割结果，对left和right进行去重操作
+- 第七步：继续移动指针寻找符合条件的元组
 
 ```python
 class Solution:
@@ -218,6 +233,69 @@ class Solution:
                     right -= 1
                     left += 1
                     
+        return result
+```
+
+## 18. 4Sum
+
+https://leetcode.com/problems/4sum/description/
+
+文章链接：https://programmercarl.com/0018.%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV1DS4y147US
+
+<img width="792" height="642" alt="image" src="https://github.com/user-attachments/assets/f9f6a475-0724-42a7-b258-6367961dddcd" />
+
+- 第一步：创建接收集合，对数组进行排序
+- 第二步：遍历第一个元素，对k进行剪枝和去重
+- 第三步：遍历第二个元素，对i进行剪枝和去重
+- 第四步：定义left和right指针
+- 第五步：移动指针，找到符合条件的元素
+- 第六步：如果找到，收割结果，对left和right进行去重操作
+- 第七步：继续移动指针寻找符合条件的元组
+
+```python
+class Solution:
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        nums.sort()
+        n = len(nums)
+        result = []
+        for i in range(n):
+            # 剪枝（可省）
+            if nums[i] > target and nums[i] > 0 and target > 0:
+                break # 这里使用break，统一通过最后的return返回
+            # 对nums[i]去重
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+            for j in range(i+1, n):
+                # 2级剪枝处理（可省）
+                if nums[i] + nums[j] > target and target > 0: 
+                    break
+                # 对nums[j]去重去重
+                if j > i+1 and nums[j] == nums[j-1]: 
+                    continue
+                left, right = j+1, n-1
+                while left < right:
+                    s = nums[i] + nums[j] + nums[left] + nums[right]
+                    if s == target:
+                        # 加答案
+                        result.append([nums[i], nums[j], nums[left], nums[right]])
+                        
+                        # 对nums[left]和nums[right]去重
+                        while left < right and nums[left] == nums[left+1]:
+                            left += 1
+                        while left < right and nums[right] == nums[right-1]:
+                            right -= 1
+                        
+                        # 找到答案时，双指针同时收缩
+                        left += 1
+                        right -= 1
+                    # nums[i] + nums[j] + nums[left] + nums[right] < target 会溢出
+                    elif s < target:
+                        left += 1
+                    # nums[i] + nums[j] + nums[left] + nums[right] > target 会溢出
+                    else:
+                        right -= 1
         return result
 ```
 
