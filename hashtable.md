@@ -54,3 +54,33 @@ https://leetcode.com/problems/intersection-of-two-arrays/
         
         return list(res)
 ```
+
+## 202. Happy Number
+
+https://leetcode.com/problems/happy-number/
+
+文章链接：https://programmercarl.com/0202.%E5%BF%AB%E4%B9%90%E6%95%B0.html#%E6%80%9D%E8%B7%AF
+
+```python
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        record = set()
+
+        while True:
+            n = self.get_sum(n)
+            if n == 1:
+                return True
+            
+            # 如果中间结果重复出现，说明陷入死循环了，该数不是快乐数
+            if n in record:
+                return False
+            else:
+                record.add(n)
+
+    def get_sum(self,n: int) -> int: 
+        new_num = 0
+        while n:
+            n, r = divmod(n, 10) # divmod(a, b) return (a // b, a % b)
+            new_num += r ** 2
+        return new_num
+```
