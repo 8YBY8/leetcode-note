@@ -156,3 +156,85 @@ if __name__ == "__main__":
         except EOFError:
             break
 ```
+
+# 字符串part02
+
+## 151. Reverse Words in a String
+
+https://leetcode.com/problems/reverse-words-in-a-string/
+
+文章链接：https://programmercarl.com/0151.%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%8D%95%E8%AF%8D.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV1uT41177fX
+
+```python
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        # return " ".join(reversed(s.split()))
+        newS = s.split()
+        reveS = reversed(newS)
+        return " ".join(reveS)
+```
+
+## 卡码网：55.右旋转字符串 
+
+https://kamacoder.com/problempage.php?pid=1065
+
+文章链接：https://programmercarl.com/kamacoder/0055.%E5%8F%B3%E6%97%8B%E5%AD%97%E7%AC%A6%E4%B8%B2.html#%E6%80%9D%E8%B7%AF
+
+```python
+#获取输入的数字k和字符串
+k = int(input())
+s = input()
+
+#通过切片反转第一段和第二段字符串
+#注意：python中字符串是不可变的，所以也需要额外空间
+s = s[len(s)-k:] + s[:len(s)-k]
+print(s)
+```
+
+## 28. Find the Index of the First Occurrence in a String
+
+https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/
+
+文章链接：https://programmercarl.com/0028.%E5%AE%9E%E7%8E%B0strStr.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV1PD4y1o7nd/ https://www.bilibili.com/video/BV1M5411j7Xx
+
+Method 1: 使用 find (最简单)
+
+```python
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        return haystack.find(needle)
+```
+
+Method 2：使用KMP 前缀表（减一）
+
+```python
+class Solution:
+    def getNext(self, next, s):
+        j = -1
+        next[0] = j
+        for i in range(1, len(s)):
+            while j >= 0 and s[i] != s[j+1]:
+                j = next[j]
+            if s[i] == s[j+1]:
+                j += 1
+            next[i] = j
+    
+    def strStr(self, haystack: str, needle: str) -> int:
+        if not needle:
+            return 0
+        next = [0] * len(needle)
+        self.getNext(next, needle)
+        j = -1
+        for i in range(len(haystack)):
+            while j >= 0 and haystack[i] != needle[j+1]:
+                j = next[j]
+            if haystack[i] == needle[j+1]:
+                j += 1
+            if j == len(needle) - 1:
+                return i - len(needle) + 1
+        return -1
+```
