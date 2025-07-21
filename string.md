@@ -82,7 +82,23 @@ class Solution:
         return ''.join(res)
 ```
 
-Method 2：Python特性
+Method 2: 通用于其他语言的解法 + reversed()
+
+```
+class Solution:
+    def reverseStr(self, s: str, k: int) -> str:
+        t = list(s)
+        for i in range(0, len(t), 2 * k):
+            t[i: i + k] = reversed(t[i: i + k])
+        return "".join(t)
+
+作者：力扣官方题解
+链接：https://leetcode.cn/problems/reverse-string-ii/solutions/946553/fan-zhuan-zi-fu-chuan-ii-by-leetcode-sol-ua7s/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+```
+
+Method 3：Python特性
 
 ```python
 class Solution:
