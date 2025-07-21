@@ -238,3 +238,54 @@ class Solution:
                 return i - len(needle) + 1
         return -1
 ```
+
+## 459. Repeated Substring Pattern
+
+https://leetcode.com/problems/repeated-substring-pattern/
+
+文章链接：https://programmercarl.com/0459.%E9%87%8D%E5%A4%8D%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV1cg41127fw/?vd_source=dfe4be3e1289aa3263c6243a52315d05
+
+Method 1: 使用 find
+
+解题思路：
+- 通过复制两个s创建ss并去头去尾
+- 如果ss里有s，那return True
+
+```python
+class Solution:
+    def repeatedSubstringPattern(self, s: str) -> bool:
+        n = len(s)
+        if n <= 1:
+            return False
+        # 通过复制两个s创建ss并去头去尾
+        # 如果ss里有s，那return True
+        ss = s[1:] + s[:-1] 
+        return ss.find(s) != -1
+```
+
+Method 2: 使用KMP 前缀表减一
+
+```python
+class Solution:
+    def repeatedSubstringPattern(self, s: str) -> bool:  
+        if len(s) == 0:
+            return False
+        nxt = [0] * len(s)
+        self.getNext(nxt, s)
+        if nxt[-1] != -1 and len(s) % (len(s) - (nxt[-1] + 1)) == 0:
+            return True
+        return False
+    
+    def getNext(self, nxt, s):
+        nxt[0] = -1
+        j = -1
+        for i in range(1, len(s)):
+            while j >= 0 and s[i] != s[j+1]:
+                j = nxt[j]
+            if s[i] == s[j+1]:
+                j += 1
+            nxt[i] = j
+        return nxt
+```
