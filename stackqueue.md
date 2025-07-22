@@ -145,3 +145,24 @@ class Solution:
         # 第一种情况：此时我们已经遍历完了字符串，但是栈不为空，说明有相应的左括号没有右括号来匹配，所以return false，否则就return true
         return True if not stack else False
 ```
+
+## 1047. Remove All Adjacent Duplicates In String
+
+https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/
+
+文章链接：https://programmercarl.com/1047.%E5%88%A0%E9%99%A4%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E7%9B%B8%E9%82%BB%E9%87%8D%E5%A4%8D%E9%A1%B9.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV12a411P7mw?vd_source=dfe4be3e1289aa3263c6243a52315d05&spm_id_from=333.788.videopod.sections
+
+```python
+class Solution:
+    def removeDuplicates(self, s: str) -> str:
+        res = list()
+        for item in s:
+            if res and res[-1] == item:
+                res.pop()
+            else: # s 与 res.top()相等的情况
+                res.append(item)
+        return "".join(res)  # 字符串拼接
+```
+
