@@ -166,3 +166,4 @@ class Solution:
         return "".join(res)  # 字符串拼接
 ```
 
+<img width="1275" height="569" alt="image" src="https://github.com/user-attachments/assets/99870f55-6622-4abb-9fdf-45e4e2d722c5" />
