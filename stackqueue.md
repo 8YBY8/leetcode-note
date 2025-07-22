@@ -59,4 +59,57 @@ class MyQueue:
 # param_4 = obj.empty()
 ```
 
+## 225. Implement Stack using Queues
 
+https://leetcode.com/problems/implement-stack-using-queues/
+
+文章链接：https://programmercarl.com/0225.%E7%94%A8%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV1Fd4y1K7sm
+
+```python
+class MyStack:
+
+    def __init__(self):
+        self.que = deque()
+
+    def push(self, x: int) -> None:
+        self.que.append(x)
+
+    def pop(self) -> int:
+        if self.empty():
+            return None
+        # 将队列头部的元素（除了最后一个元素外） 重新添加到队列尾部
+        for i in range(len(self.que)-1):
+            self.que.append(self.que.popleft())
+        # 此时弹出的元素顺序就是栈的顺序了
+        return self.que.popleft()
+
+    def top(self) -> int:
+        # 写法一：
+        if self.empty():
+            return None
+        return self.que[-1]
+
+        # 写法二：
+        # if self.empty():
+        #     return None
+        # # 将队列头部的元素（除了最后一个元素外） 重新添加到队列尾部
+        # for i in range(len(self.que)-1):
+        #     self.que.append(self.que.popleft())
+        # temp = self.que.popleft() # 此时获得的元素就是栈顶的元素了
+        # self.que.append(temp) #将获取完的元素也重新添加到队列尾部，保证数据结构没有变化
+        # return temp
+
+    def empty(self) -> bool:
+        return not self.que
+        
+
+
+# Your MyStack object will be instantiated and called as such:
+# obj = MyStack()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.empty()
+```
