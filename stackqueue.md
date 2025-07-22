@@ -113,3 +113,35 @@ class MyStack:
 # param_3 = obj.top()
 # param_4 = obj.empty()
 ```
+
+## 20. Valid Parentheses
+
+https://leetcode.com/problems/valid-parentheses/
+
+文章链接：https://programmercarl.com/0020.%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV1AF411w78g
+
+![Valid Parentheses](https://file1.kamacoder.com/i/algo/20.%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7.gif)
+
+```python
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        
+        for item in s:
+            if item == '(':
+                stack.append(')')
+            elif item == '[':
+                stack.append(']')
+            elif item == '{':
+                stack.append('}')
+            # 第三种情况：遍历字符串匹配的过程中，栈已经为空了，没有匹配的字符了，说明右括号没有找到对应的左括号 return false
+            # 第二种情况：遍历字符串匹配的过程中，发现栈里没有我们要匹配的字符。所以return false
+            elif not stack or stack[-1] != item:
+                return False
+            else:
+                stack.pop()
+        # 第一种情况：此时我们已经遍历完了字符串，但是栈不为空，说明有相应的左括号没有右括号来匹配，所以return false，否则就return true
+        return True if not stack else False
+```
