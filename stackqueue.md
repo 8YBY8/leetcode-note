@@ -167,3 +167,52 @@ class Solution:
 ```
 
 <img width="1275" height="569" alt="image" src="https://github.com/user-attachments/assets/99870f55-6622-4abb-9fdf-45e4e2d722c5" />
+
+# 栈与队列part02
+
+## 150. Evaluate Reverse Polish Notation
+
+https://leetcode.com/problems/evaluate-reverse-polish-notation/
+
+文章链接：https://programmercarl.com/0150.%E9%80%86%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B1%82%E5%80%BC.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV1kd4y1o7on
+
+![Evaluate Reverse Polish Notation](https://file1.kamacoder.com/i/algo/150.%E9%80%86%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B1%82%E5%80%BC.gif)
+
+```python
+/**
+ * @param {string[]} tokens
+ * @return {number}
+ */
+var evalRPN = function(tokens) {
+    const stack = [];
+    for (const token of tokens) {
+        if (isNaN(Number(token))) { // 非数字
+            // 出栈两个数字
+            const n2 = stack.pop(); 
+            const n1 = stack.pop();
+            switch (token) {
+                case "+":
+                    stack.push(n1 + n2);
+                    break;
+                case "-":
+                    stack.push(n1 - n2);
+                    break;
+                case "*":
+                    stack.push(n1 * n2);
+                    break;
+                case "/":
+                    stack.push(n1 / n2 | 0);
+                    break;
+            }
+        } else { // 数字
+            stack.push(Number(token));
+        }
+    }
+    // 因没有遇到运算符而待在栈中的结果
+    return stack[0]; 
+};
+```
+
+## 
