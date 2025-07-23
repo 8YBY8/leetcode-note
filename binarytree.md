@@ -33,5 +33,48 @@ https://programmercarl.com/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%90%86%E8%AE%BA%E5%9F%B
 
 <img width="1410" height="384" alt="image" src="https://github.com/user-attachments/assets/5f519cbe-bb43-49a6-980d-6cbb19dddaba" />
 
+## 二叉树的存储方式
 
+二叉树可以链式存储，也可以顺序存储 (链式存储方式就用指针， 顺序存储的方式就是用数组。)
 
+### 链式存储
+
+链式存储如图：
+
+<img width="1352" height="864" alt="image" src="https://github.com/user-attachments/assets/c509bf42-5775-415c-a675-2db70838ce98" />
+
+### 顺序存储
+
+顺序存储(用数组来存储二叉树)如图：
+
+<img width="954" height="842" alt="image" src="https://github.com/user-attachments/assets/73d753db-4f06-49fe-83a4-68ca2bb3ada6" />
+
+如果父节点的数组下标是 i，那么它的左孩子就是 i * 2 + 1，右孩子就是 i * 2 + 2。
+
+## 二叉树的遍历方式
+
+二叉树主要有两种遍历方式：
+- 深度优先遍历：先往深走，遇到叶子节点再往回走。
+- 广度优先遍历：一层一层的去遍历。
+
+深度优先遍历：
+  - 前序遍历（递归法，迭代法）中左右
+  - 中序遍历（递归法，迭代法）左中右
+  - 后序遍历（递归法，迭代法）左右中
+<img width="1352" height="490" alt="image" src="https://github.com/user-attachments/assets/394e7710-1d39-4850-9574-ff2fdff458d1" />
+
+经常会使用递归的方式来实现深度优先遍历
+
+广度优先遍历：
+  - 层次遍历（迭代法）
+
+## 二叉树的定义
+
+链式存储的二叉树节点的定义方式 C++:
+```javascript
+function TreeNode(val, left, right) {
+    this.val = (val===undefined ? 0 : val)
+    this.left = (left===undefined ? null : left)
+    this.right = (right===undefined ? null : right)
+}
+```
