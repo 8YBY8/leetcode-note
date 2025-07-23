@@ -180,7 +180,7 @@ https://leetcode.com/problems/evaluate-reverse-polish-notation/
 
 ![Evaluate Reverse Polish Notation](https://file1.kamacoder.com/i/algo/150.%E9%80%86%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B1%82%E5%80%BC.gif)
 
-```python
+```javascript
 /**
  * @param {string[]} tokens
  * @return {number}
@@ -215,4 +215,66 @@ var evalRPN = function(tokens) {
 };
 ```
 
-## 
+## 239. Sliding Window Maximum
+
+https://leetcode.com/problems/sliding-window-maximum/
+
+文章链接：https://programmercarl.com/0239.%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%80%BC.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV1XS4y1p7qj
+
+![Sliding Window Maximum]{https://file1.kamacoder.com/i/algo/239.%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%80%BC-2.gif}
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var maxSlidingWindow = function(nums, k) {
+    class MonoQueue {
+        queue; //单调队列（从大到小）
+        constructor() {
+            this.queue = [];
+        }
+        // 如果enqueue的数值大于入口元素的数值，那么就将队列后端的数值弹出，直到enqueue的数值小于等于队列入口元素的数值为止。
+        // 这样就保持了队列里的数值是单调从大到小的了。
+        enqueue(value) {
+            let back = this.queue[this.queue.length - 1];
+            while (back !== undefined && back < value) {
+                this.queue.pop();
+                back = this.queue[this.queue.length - 1];
+            }
+            this.queue.push(value);
+        }
+        // 每次弹出的时候，比较当前要弹出的数值是否等于队列出口元素的数值，如果相等则弹出。
+        // 同时dequeue之前判断队列当前是否为空。
+        dequeue(value) {
+            let front = this.front();
+            if (front === value) {
+                this.queue.shift();
+            }
+        }
+        // 查询当前队列里的最大值 直接返回队列前端
+        front() {
+            return this.queue[0];
+        }
+    }
+    let helperQueue = new MonoQueue();
+    let i = 0, j = 0;
+    let resArr = [];
+    while (j < k) { // 先将前k的元素放进队列
+        helperQueue.enqueue(nums[j++]);
+    }
+    resArr.push(helperQueue.front()); // result 记录前k的元素的最大值
+    while (j < nums.length) {
+        helperQueue.dequeue(nums[i]); // 滑动窗口移除最前面元素
+        helperQueue.enqueue(nums[j]); // 滑动窗口前加入最后面的元素
+        resArr.push(helperQueue.front()); // 记录对应的最大值
+        i++, j++;
+    }
+    return resArr;
+};
+```
+
+##
