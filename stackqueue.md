@@ -302,3 +302,10 @@ var topKFrequent = function(nums, k) {
     return arr.slice(0, k).map(pair => pair[1]);
 };
 ```
+
+# 总结
+
+https://programmercarl.com/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97%E6%80%BB%E7%BB%93.html#%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97%E7%9A%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80
+
+一个队列在模拟栈弹出元素的时候只要将队列头部的元素（除了最后一个元素外） 重新添加到队列尾部，此时在去弹出元素就是栈的顺序了
+
