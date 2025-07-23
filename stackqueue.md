@@ -223,7 +223,7 @@ https://leetcode.com/problems/sliding-window-maximum/
 
 视频链接：https://www.bilibili.com/video/BV1XS4y1p7qj
 
-![Sliding Window Maximum]{https://file1.kamacoder.com/i/algo/239.%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%80%BC-2.gif}
+![Sliding Window Maximum](https://file1.kamacoder.com/i/algo/239.%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%80%BC-2.gif)
 
 ```javascript
 /**
