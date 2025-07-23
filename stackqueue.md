@@ -277,4 +277,28 @@ var maxSlidingWindow = function(nums, k) {
 };
 ```
 
-##
+## 347. Top K Frequent Elements
+
+https://leetcode.com/problems/top-k-frequent-elements/
+
+文章链接：https://programmercarl.com/0347.%E5%89%8DK%E4%B8%AA%E9%AB%98%E9%A2%91%E5%85%83%E7%B4%A0.html#%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC
+
+视频链接：https://www.bilibili.com/video/BV1Xg41167Lz
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var topKFrequent = function(nums, k) {
+    const count = {};
+    for (const num of nums) {
+        count[num] = (count[num] || 0) + 1;
+    }
+
+    const arr = Object.entries(count).map(([num, freq]) => [freq, parseInt(num)]);
+    arr.sort((a, b) => b[0] - a[0]);
+    return arr.slice(0, k).map(pair => pair[1]);
+};
+```
