@@ -83,7 +83,13 @@ function TreeNode(val, left, right) {
 
 文章链接：https://programmercarl.com/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%80%92%E5%BD%92%E9%81%8D%E5%8E%86.html#%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC
 
-视频链接：https://www.bilibili.com/video/BV1Wh411S7xt-
+视频链接：https://www.bilibili.com/video/BV1Wh411S7xt
+
+
+递归算法的三个要素:
+1. 确定递归函数的参数和返回值
+2. 确定终止条件
+3. 确定单层递归的逻辑
 
 ### 144. Binary Tree Preorder Traversal
 
