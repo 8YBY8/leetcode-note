@@ -95,7 +95,7 @@ function TreeNode(val, left, right) {
 
 https://leetcode.com/problems/binary-tree-preorder-traversal/
 
-Method 1 (更易懂): 
+Method 1: 递归遍历1
 
 ```javascript
 /**
@@ -130,7 +130,7 @@ var preorderTraversal = function(root) {
 };
 ```
 
-Method 2: 
+Method 2: 递归遍历2
 
 ```javascript
 /**
@@ -162,9 +162,47 @@ var preorderTraversal = function(root) {
 };
 ```
 
+Method 3: 迭代遍历
+
+前序遍历是中左右，每次先处理的是中间节点，那么先将根节点放入栈中，然后将右孩子加入栈，再加入左孩子。
+
+![Binary Tree Preorder Traversal](https://file1.kamacoder.com/i/algo/%E4%BA%8C%E5%8F%89%E6%A0%91%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86%EF%BC%88%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89.gif)
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var preorderTraversal = function(root) {
+    // 入栈 右 -> 左
+    // 出栈 中 -> 左 -> 右
+    let res = []
+    if(!root) return res;
+    const stack = [root];
+    let cur = null;
+    while(stack.length) {
+        cur = stack.pop(); // 中
+        res.push(cur.val);
+        if (cur.right) stack.push(cur.right); // 右
+        if (cur.left) stack.push(cur.left); // 左
+    }
+    return res;
+};
+```
+
 ### 145. Binary Tree Postorder Traversal
 
 https://leetcode.com/problems/binary-tree-postorder-traversal/
+
+Method 1: 递归遍历
 
 ```javascript
 /**
@@ -189,9 +227,46 @@ var postorderTraversal = function(root) {
 };
 ```
 
+Method 2: 迭代遍历
+
+<img width="1128" height="262" alt="image" src="https://github.com/user-attachments/assets/8500592b-c129-4b18-a702-5bca4f03b89e" />
+
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var postorderTraversal = function(root) {
+    // 入栈 左 -> 右
+    // 出栈 中 -> 右 -> 左 结果翻转
+    let res = [];
+    if(!root) return res;
+    let st = [root];
+    let cur = null
+    while(st.length > 0) {
+        cur = st.pop(); // 中
+        res.push(cur.val);
+        if(cur.left) st.push(cur.left); // 左
+        if(cur.right) st.push(cur.right); // 右
+    }
+    return res.reverse();
+};
+```
+
 ### 94. Binary Tree Inorder Traversal
 
 https://leetcode.com/problems/binary-tree-inorder-traversal/description/
+
+Method 1: 递归遍历
 
 ```javascript
 /**
@@ -216,4 +291,42 @@ var inorderTraversal = function(root) {
 };
 ```
 
+Method 2: 迭代遍历
 
+前序和中序的迭代遍历是完全两种代码风格，并不像递归写法那样代码稍做调整，就可以实现前后中序。这是因为前序遍历中访问节点（遍历节点）和处理节点（将元素放进result数组中）可以同步处理，但是中序就无法做到同步
+
+![Binary Tree Inorder Traversal](https://file1.kamacoder.com/i/algo/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%EF%BC%88%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89.gif)
+
+```javascipt
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var inorderTraversal = function(root) {
+    let res = [];
+    const stack = [];
+    let cur = root;
+    while(stack.length || cur) {
+        if(cur) { // 指针来访问节点，访问到最底层
+            stack.push(cur); // 将访问的节点放进栈
+            // 左
+            cur = cur.left;
+        } else {
+            // --> 弹出 中 
+            cur = stack.pop();
+            res.push(cur.val); 
+            // 右
+            cur = cur.right;
+        }
+    };
+    return res;
+};
+```
