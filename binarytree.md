@@ -78,3 +78,92 @@ function TreeNode(val, left, right) {
     this.right = (right===undefined ? null : right)
 }
 ```
+
+##  递归遍历 （必须掌握）
+
+文章链接：https://programmercarl.com/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%80%92%E5%BD%92%E9%81%8D%E5%8E%86.html#%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC
+
+视频链接：https://www.bilibili.com/video/BV1Wh411S7xt-
+
+### 144. Binary Tree Preorder Traversal
+
+https://leetcode.com/problems/binary-tree-preorder-traversal/
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var preorderTraversal = function(root) {
+    return root ? [
+        // 前序遍历：中左右
+        root.val, // 中
+        ...preorderTraversal(root.left), // 左
+        ...preorderTraversal(root.right), // 右
+    ]:[];
+};
+```
+
+### 145. Binary Tree Postorder Traversal
+
+https://leetcode.com/problems/binary-tree-postorder-traversal/
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var postorderTraversal = function(root) {
+    return root ? [
+        // 后序遍历：左右中
+        ...postorderTraversal(root.left), // 左
+        ...postorderTraversal(root.right), // 右
+        root.val, // 中
+    ] : [];
+};
+```
+
+### 94. Binary Tree Inorder Traversal
+
+https://leetcode.com/problems/binary-tree-inorder-traversal/description/
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var inorderTraversal = function(root) {
+    return root ? [
+        // 中序遍历
+        ...inorderTraversal(root.left), // 递归左子树
+        root.val, // 中
+        ...inorderTraversal(root.right) // 递归右子树
+    ] : [];
+};
+```
+
+
