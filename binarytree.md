@@ -199,6 +199,42 @@ var preorderTraversal = function(root) {
 };
 ```
 
+Method 4: 统一迭代法不推荐因为并不好理解，而且想在面试直接写出来还有难度的
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var preorderTraversal = function(root) {
+    // 前序遍历：中左右
+    // 压栈顺序：右左中
+    let res = []
+    const stack = [];
+    if (root) stack.push(root);
+    while(stack.length) {
+        const node = stack.pop();
+        if(!node) {
+            res.push(stack.pop().val);
+            continue;
+        }
+        if (node.right) stack.push(node.right); // 右
+        if (node.left) stack.push(node.left); // 左
+        stack.push(node); // 中
+        stack.push(null);
+    };
+    return res;
+};
+```
+
 ## 145. Binary Tree Postorder Traversal
 
 https://leetcode.com/problems/binary-tree-postorder-traversal/
@@ -240,7 +276,6 @@ Method 2: 迭代遍历
 
 <img width="1128" height="262" alt="image" src="https://github.com/user-attachments/assets/8500592b-c129-4b18-a702-5bca4f03b89e" />
 
-
 ```javascript
 /**
  * Definition for a binary tree node.
@@ -268,6 +303,42 @@ var postorderTraversal = function(root) {
         if(cur.right) st.push(cur.right); // 右
     }
     return res.reverse();
+};
+```
+
+Method 3: 统一迭代法
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var postorderTraversal = function(root) {
+    // 后续遍历：左右中
+    // 压栈顺序：中右左
+    let res = [];
+    const stack = [];
+    if (root) stack.push(root);
+    while(stack.length) {
+        const node = stack.pop();
+        if(!node) {
+            res.push(stack.pop().val);
+            continue;
+        }
+        stack.push(node); // 中
+        stack.push(null);
+        if (node.right) stack.push(node.right); // 右
+        if (node.left) stack.push(node.left); // 左
+    };
+    return res;
 };
 ```
 
@@ -343,6 +414,42 @@ var inorderTraversal = function(root) {
             // 右
             cur = cur.right;
         }
+    };
+    return res;
+};
+```
+
+Method 3: 统一迭代法
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var inorderTraversal = function(root) {
+    //  中序遍历：左中右
+    //  压栈顺序：右中左
+    let res = [];
+    const stack = [];
+    if (root) stack.push(root);
+    while(stack.length) {
+        const node = stack.pop();
+        if(!node) {
+            res.push(stack.pop().val);
+            continue;
+        }
+        if (node.right) stack.push(node.right); // 右
+        stack.push(node); // 中
+        stack.push(null);
+        if (node.left) stack.push(node.left); // 左
     };
     return res;
 };
