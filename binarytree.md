@@ -79,23 +79,20 @@ function TreeNode(val, left, right) {
 }
 ```
 
-##  递归遍历 （必须掌握）
+## 144. Binary Tree Preorder Traversal
+
+https://leetcode.com/problems/binary-tree-preorder-traversal/
+
+Method 1: 递归遍历1
 
 文章链接：https://programmercarl.com/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%80%92%E5%BD%92%E9%81%8D%E5%8E%86.html#%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC
 
 视频链接：https://www.bilibili.com/video/BV1Wh411S7xt
 
-
 递归算法的三个要素:
 1. 确定递归函数的参数和返回值
 2. 确定终止条件
 3. 确定单层递归的逻辑
-
-### 144. Binary Tree Preorder Traversal
-
-https://leetcode.com/problems/binary-tree-preorder-traversal/
-
-Method 1: 递归遍历1
 
 ```javascript
 /**
@@ -164,6 +161,10 @@ var preorderTraversal = function(root) {
 
 Method 3: 迭代遍历
 
+文章链接：https://programmercarl.com/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%BF%AD%E4%BB%A3%E9%81%8D%E5%8E%86.html
+
+视频链接：https://www.bilibili.com/video/BV15f4y1W7i2
+
 前序遍历是中左右，每次先处理的是中间节点，那么先将根节点放入栈中，然后将右孩子加入栈，再加入左孩子。
 
 ![Binary Tree Preorder Traversal](https://file1.kamacoder.com/i/algo/%E4%BA%8C%E5%8F%89%E6%A0%91%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86%EF%BC%88%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%89.gif)
@@ -198,11 +199,15 @@ var preorderTraversal = function(root) {
 };
 ```
 
-### 145. Binary Tree Postorder Traversal
+## 145. Binary Tree Postorder Traversal
 
 https://leetcode.com/problems/binary-tree-postorder-traversal/
 
 Method 1: 递归遍历
+
+文章链接：https://programmercarl.com/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%80%92%E5%BD%92%E9%81%8D%E5%8E%86.html#%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC
+
+视频链接：https://www.bilibili.com/video/BV1Wh411S7xt
 
 ```javascript
 /**
@@ -228,6 +233,10 @@ var postorderTraversal = function(root) {
 ```
 
 Method 2: 迭代遍历
+
+文章链接：https://programmercarl.com/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%BF%AD%E4%BB%A3%E9%81%8D%E5%8E%86.html
+
+视频链接：https://www.bilibili.com/video/BV15f4y1W7i2
 
 <img width="1128" height="262" alt="image" src="https://github.com/user-attachments/assets/8500592b-c129-4b18-a702-5bca4f03b89e" />
 
@@ -262,11 +271,15 @@ var postorderTraversal = function(root) {
 };
 ```
 
-### 94. Binary Tree Inorder Traversal
+## 94. Binary Tree Inorder Traversal
 
 https://leetcode.com/problems/binary-tree-inorder-traversal/description/
 
 Method 1: 递归遍历
+
+文章链接：https://programmercarl.com/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%80%92%E5%BD%92%E9%81%8D%E5%8E%86.html#%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC
+
+视频链接：https://www.bilibili.com/video/BV1Wh411S7xt
 
 ```javascript
 /**
@@ -292,6 +305,10 @@ var inorderTraversal = function(root) {
 ```
 
 Method 2: 迭代遍历
+
+文章链接：https://programmercarl.com/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%BF%AD%E4%BB%A3%E9%81%8D%E5%8E%86.html
+
+视频链接：https://www.bilibili.com/video/BV1Zf4y1a77g
 
 前序和中序的迭代遍历是完全两种代码风格，并不像递归写法那样代码稍做调整，就可以实现前后中序。这是因为前序遍历中访问节点（遍历节点）和处理节点（将元素放进result数组中）可以同步处理，但是中序就无法做到同步
 
