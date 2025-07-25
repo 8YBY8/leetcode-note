@@ -105,8 +105,8 @@ https://leetcode.com/problems/binary-tree-preorder-traversal/
 var preorderTraversal = function(root) {
     // 如果 root 不为空（即当前节点存在），就执行中序遍历：
       //  先访问当前节点的值：root.val
-      //  然后递归遍历左子树：inorderTraversal(root.left)
-      //  最后递归遍历右子树：inorderTraversal(root.right)
+      //  然后递归遍历左子树：preorderTraversal(root.left)
+      //  最后递归遍历右子树：preorderTraversal(root.right)
       // 并将三个部分组合为一个数组返回。
     // 如果 root 是 null（即当前节点不存在），就返回一个空数组 []。
     //  通过展开运算符...把所有子结果拼接为一个数组
