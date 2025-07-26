@@ -1086,3 +1086,47 @@ var maxDepth = function(root) {
     return depth + 1
 };
 ```
+
+## 111. Minimum Depth of Binary Tree
+
+https://leetcode.com/problems/minimum-depth-of-binary-tree/
+
+文章链接：https://programmercarl.com/0111.%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV1QD4y1B7e2
+
+<img width="958" height="748" alt="image" src="https://github.com/user-attachments/assets/1a5e29ca-6d0b-408f-8ae4-6eebd142e8e4" />
+
+求二叉树的最小深度和求二叉树的最大深度的差别主要在于处理左右孩子不为空的逻辑: 如果左子树为空，右子树不为空，说明最小深度是 1 + 右子树的深度。反之，右子树为空，左子树不为空，最小深度是 1 + 左子树的深度。 最后如果左右子树都不为空，返回左右子树深度最小值 + 1 。
+
+Method 1: 递归
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var minDepth = function(root) {
+    if(!root) return 0;
+    // 到叶子节点 返回 1
+    if(!root.left && !root.right) return 1;
+    let leftDepth = minDepth(root.left)
+    let rightDepth = minDepth(root.right)
+
+    // 当一个左子树为空，右不为空，这时并不是最低点
+    if (root.left === null && root.right !== null) return 1 + rightDepth
+    // 当一个右子树为空，左不为空，这时并不是最低点
+    if (root.left !== null && root.right === null) return 1 + leftDepth
+    return 1 + Math.min(leftDepth, rightDepth)
+};
+```
+
+Method 2: 迭代
+https://github.com/8YBY8/leetcode-note/edit/main/binarytree.md#111-minimum-depth-of-binary-tree
