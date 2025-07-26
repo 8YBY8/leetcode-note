@@ -870,6 +870,10 @@ var minDepth = function (root) {
 
 https://leetcode.com/problems/invert-binary-tree/
 
+文章链接：
+
+视频链接：
+
 针对二叉树的问题，解题之前一定要想清楚究竟是前中后序遍历，还是层序遍历。
 
 Method 1: 递归前序遍历
@@ -932,5 +936,84 @@ var invertTree = function(root) {
         }
     }
     return root;
+};
+```
+
+## 101. Symmetric Tree
+
+https://leetcode.com/problems/symmetric-tree/
+
+文章链接：https://programmercarl.com/0101.%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV1ue4y1Y7Mf
+
+<img width="1074" height="774" alt="image" src="https://github.com/user-attachments/assets/c10fd8b3-502a-4336-95ab-39f5cd41440e" />
+
+
+Method 1: 递归
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isSymmetric = function (root) {
+    // 使用递归遍历左右子树 递归三部曲
+    // 1. 确定递归的参数 root.left root.right和返回值true false 
+    const compareNode = function (left, right) {
+        // 2. 确定终止条件 空的情况
+        if (left === null && right !== null || left !== null && right === null) {  // 首先排除空节点的情况
+            return false;
+        } else if (left === null && right === null) {
+            return true;
+        } else if (left.val !== right.val) { // 排除了空节点，再排除数值不相同的情况
+            return false;
+        }
+        // 3. 确定单层递归逻辑
+        let outSide = compareNode(left.left, right.right); // 左子树：左、 右子树：右
+        let inSide = compareNode(left.right, right.left);  // 左子树：右、 右子树：左
+        return outSide && inSide;                          // 左子树：中、 右子树：中（逻辑处理）
+    }
+    if (root === null) {
+        return true;
+    }
+    return compareNode(root.left, root.right);
+};
+```
+
+Method 2:迭代
+```javascript
+var isSymmetric = function(root) {
+  // 迭代方法判断是否是对称二叉树
+  // 首先判断root是否为空
+  if(root === null) {
+      return true;
+  }
+  let queue = [];
+  queue.push(root.left);
+  queue.push(root.right);
+  while(queue.length) {
+      let leftNode = queue.shift();    //左节点
+      let rightNode = queue.shift();   //右节点
+      if(leftNode === null && rightNode === null) {
+          continue;
+      }
+      if(leftNode === null || rightNode === null || leftNode.val !== rightNode.val) {
+          return false;
+      }
+      queue.push(leftNode.left);     //左节点左孩子入队
+      queue.push(rightNode.right);   //右节点右孩子入队
+      queue.push(leftNode.right);    //左节点右孩子入队
+      queue.push(rightNode.left);    //右节点左孩子入队
+  }
+  
+  return true;
 };
 ```
