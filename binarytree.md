@@ -1026,6 +1026,7 @@ https://leetcode.com/problems/maximum-depth-of-binary-tree/description/
 
 视频链接：https://www.bilibili.com/video/BV1Gd4y1V75u
 
+Method 1: 递归Recursion
 ```javascript
 /**
  * Definition for a binary tree node.
@@ -1047,6 +1048,10 @@ var maxDepth = function(root) {
     return depth
 };
 ```
+
+Method 2: 迭代Iteration
+https://github.com/8YBY8/leetcode-note/blob/main/binarytree.md#104-maximum-depth-of-binary-tree
+
 
 ## 559. Maximum Depth of N-ary Tree
 
