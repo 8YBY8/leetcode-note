@@ -459,6 +459,9 @@ var inorderTraversal = function(root) {
 };
 ```
 
+<img width="1012" height="755" alt="image" src="https://github.com/user-attachments/assets/4405347d-f382-4c8d-bd0c-561c309174ba" />
+
+
 ## 层序遍历 (10道题)
 
 二叉树的层序遍历，就是图论中的广度优先搜索在二叉树中的应用，需要借助队列来实现
@@ -826,7 +829,8 @@ var maxDepth = function (root) {
     }
     return max;
 };
-```
+```<img width="1012" height="755" alt="image" src="https://github.com/user-attachments/assets/200fb26a-0214-4d15-b572-00dffd11cd9e" />
+
 
 ### 111. Minimum Depth of Binary Tree
 
