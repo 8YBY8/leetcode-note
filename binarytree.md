@@ -455,13 +455,15 @@ var inorderTraversal = function(root) {
 };
 ```
 
-## 层序遍历
+## 层序遍历 (10道题)
+
+文章链接：https://programmercarl.com/0102.%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
 
 ### 102. Binary Tree Level Order Traversal
 
 https://leetcode.com/problems/binary-tree-level-order-traversal/
 
-文章链接：https://programmercarl.com/0102.%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
 
 视频链接：https://www.bilibili.com/video/BV1GY4y1u7b2
 
@@ -505,6 +507,206 @@ var levelOrder = function(root) {
 };
 ```
 
+### 107. Binary Tree Level Order Traversal II
 
+https://leetcode.com/problems/binary-tree-level-order-traversal-ii/
 
-https://programmercarl.com/0102.%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86.html#_107-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86-ii
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrderBottom = function (root) {
+    let res = [], queue = [];
+    queue.push(root);
+    while (queue.length && root !== null) {
+        // 存放当前层级节点数组
+        let curLevel = [];
+        // 计算当前层级节点数量
+        let length = queue.length;
+        while (length--) {
+            let node = queue.shift();
+            // 把当前层节点存入curLevel数组
+            curLevel.push(node.val);
+            // 把下一层级的左右节点存入queue队列
+            node.left && queue.push(node.left);
+            node.right && queue.push(node.right);
+        }
+        // 从数组前头插入值，避免最后反转数组，减少运算时间
+        res.unshift(curLevel);
+    }
+    return res;
+};
+```
+
+### 199. Binary Tree Right Side View
+
+https://leetcode.com/problems/binary-tree-right-side-view/
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var rightSideView = function(root) {
+    //二叉树右视图 只需要把每一层最后一个节点存储到res数组
+    let res = [], queue = [];
+    queue.push(root);
+
+    while(queue.length && root!==null) {
+        // 记录当前层级节点个数
+        let length = queue.length;
+        while(length--) {
+            let node = queue.shift();
+            // length长度为0的时候表明到了层级最后一个节点
+            if(!length) {
+                res.push(node.val);
+            }
+            node.left && queue.push(node.left);
+            node.right && queue.push(node.right);
+        }
+    }
+
+    return res;
+};
+```
+
+### 637. Average of Levels in Binary Tree
+
+https://leetcode.com/problems/average-of-levels-in-binary-tree/
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var averageOfLevels = function (root) {
+    let res = [], queue = [];
+    queue.push(root);
+    while (queue.length) {
+        // 每一层节点个数;
+        let lengthLevel = queue.length,
+            len = queue.length,
+            //   sum记录每一层的和;
+            sum = 0;
+        while (lengthLevel--) {
+            const node = queue.shift();
+            sum += node.val;
+            //   队列存放下一层节点
+            node.left && queue.push(node.left);
+            node.right && queue.push(node.right);
+        }
+        // 求平均值
+        res.push(sum / len);
+    }
+    return res;
+};
+```
+
+### 429. N-ary Tree Level Order Traversal
+
+https://leetcode.com/problems/n-ary-tree-level-order-traversal/
+
+```javascript
+/**
+ * // Definition for a _Node.
+ * function _Node(val,children) {
+ *    this.val = val;
+ *    this.children = children;
+ * };
+ */
+
+/**
+ * @param {_Node|null} root
+ * @return {number[][]}
+ */
+var levelOrder = function (root) {
+    //每一层可能有2个以上,所以不再使用node.left node.right
+    let res = [], queue = [];
+    queue.push(root);
+
+    while (queue.length && root !== null) {
+        //记录每一层节点个数还是和二叉树一致
+        let length = queue.length;
+        //存放每层节点 也和二叉树一致
+        let curLevel = [];
+        while (length--) {
+            let node = queue.shift();
+            curLevel.push(node.val);
+
+            //这里不再是 ndoe.left node.right 而是循坏node.children
+            for (let item of node.children) {
+                item && queue.push(item);
+            }
+        }
+        res.push(curLevel);
+    }
+
+    return res;
+};
+```
+
+### 515. Find Largest Value in Each Tree Row
+
+https://leetcode.com/problems/find-largest-value-in-each-tree-row/
+
+```javascript/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var largestValues = function (root) {
+    let res = [],
+        queue = [];
+    queue.push(root);
+    if (root === null) {
+        return res;
+    }
+    while (queue.length) {
+        let lengthLevel = queue.length,
+            // 初始值设为负无穷大
+            max = -Infinity;
+        while (lengthLevel--) {
+            const node = queue.shift();
+            //   在当前层中找到最大值
+            max = Math.max(max, node.val);
+            // 找到下一层的节点
+            node.left && queue.push(node.left);
+            node.right && queue.push(node.right);
+        }
+        res.push(max);
+    }
+    return res;
+};
+```
