@@ -872,6 +872,7 @@ https://leetcode.com/problems/invert-binary-tree/
 
 针对二叉树的问题，解题之前一定要想清楚究竟是前中后序遍历，还是层序遍历。
 
+Method 1: 递归前序遍历
 ```javascript
 /**
  * Definition for a binary tree node.
@@ -898,3 +899,38 @@ var invertTree = function(root) {
 };
 ```
 
+Method 2: 迭代前序遍历
+
+```javascript
+var invertTree = function(root) {
+    //我们先定义节点交换函数
+    const invertNode = function(root, left, right) {
+        let temp = left;
+        left = right;
+        right = temp;
+        root.left = left;
+        root.right = right;
+    }
+    //使用迭代方法的前序遍历 
+    let stack = [];
+    if(root === null) {
+        return root;
+    }
+    stack.push(root);
+    while(stack.length) {
+        let node = stack.pop();
+        if(node !== null) {
+            //前序遍历顺序中左右  入栈顺序是前序遍历的倒序右左中
+            node.right && stack.push(node.right);
+            node.left && stack.push(node.left);
+            stack.push(node);
+            stack.push(null);
+        } else {
+            node = stack.pop();
+            //节点处理逻辑
+            invertNode(node, node.left, node.right);
+        }
+    }
+    return root;
+};
+```
