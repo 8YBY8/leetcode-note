@@ -1017,3 +1017,60 @@ var isSymmetric = function(root) {
   return true;
 };
 ```
+
+## 104. Maximum Depth of Binary Tree
+
+https://leetcode.com/problems/maximum-depth-of-binary-tree/description/
+
+文章链接：https://programmercarl.com/0104.%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV1Gd4y1V75u
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxDepth = function(root) {
+    if (root === null) return 0;
+    let leftDepth = maxDepth(root.left); // 左
+    let rightDepth = maxDepth(root.right); // 右
+    let depth = 1 + Math.max(leftDepth, rightDepth); // 中
+    return depth
+};
+```
+
+## 559. Maximum Depth of N-ary Tree
+
+https://leetcode.com/problems/maximum-depth-of-n-ary-tree/description/
+
+```javascript
+/**
+ * // Definition for a _Node.
+ * function _Node(val,children) {
+ *    this.val = val === undefined ? null : val;
+ *    this.children = children === undefined ? null : children;
+ * };
+ */
+
+/**
+ * @param {_Node|null} root
+ * @return {number}
+ */
+var maxDepth = function(root) {
+    if(!root) return 0
+    let depth = 0
+    for(let node of root.children) {
+        depth = Math.max(depth, maxDepth(node))
+    }
+    return depth + 1
+};
+```
