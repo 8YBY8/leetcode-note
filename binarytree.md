@@ -1,4 +1,4 @@
--# 二叉树part01
+# 二叉树part01
 
 https://programmercarl.com/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
 
@@ -861,6 +861,40 @@ var minDepth = function (root) {
         }
     }
     return depth;
+};
+```
+
+# 二叉树 part02
+
+## 226. Invert Binary Tree
+
+https://leetcode.com/problems/invert-binary-tree/
+
+针对二叉树的问题，解题之前一定要想清楚究竟是前中后序遍历，还是层序遍历。
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var invertTree = function(root) {
+    // 终止条件
+    if (!root) {
+        return null;
+    }
+    // 交换左右节点 前序遍历
+    const rightNode = root.right; // 中
+    root.right = invertTree(root.left); // 左
+    root.left = invertTree(rightNode); // 右
+    return root;
 };
 ```
 
