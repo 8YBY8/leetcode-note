@@ -457,6 +457,8 @@ var inorderTraversal = function(root) {
 
 ## 层序遍历 (10道题)
 
+二叉树的层序遍历，就是图论中的广度优先搜索在二叉树中的应用，需要借助队列来实现
+
 文章链接：https://programmercarl.com/0102.%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
 
 ### 102. Binary Tree Level Order Traversal
@@ -710,3 +712,155 @@ var largestValues = function (root) {
     return res;
 };
 ```
+
+### 116. Populating Next Right Pointers in Each Node
+
+https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
+
+```javascript
+/**
+ * // Definition for a _Node.
+ * function _Node(val, left, right, next) {
+ *    this.val = val === undefined ? null : val;
+ *    this.left = left === undefined ? null : left;
+ *    this.right = right === undefined ? null : right;
+ *    this.next = next === undefined ? null : next;
+ * };
+ */
+
+/**
+ * @param {_Node} root
+ * @return {_Node}
+ */
+var connect = function(root) {
+    if (!root) return root
+    let queue = [root]
+    while (queue.length) {
+        let n = queue.length;
+        for (let i = 0; i < n; i++) {
+            let node = queue.shift();
+            if (i < n-1) {
+                node.next = queue[0];
+            }
+            if (node.left) queue.push(node.left);
+            if (node.right) queue.push(node.right);
+        }
+    }
+    return root;
+};
+```
+
+### 117. Populating Next Right Pointers in Each Node II
+
+https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/
+
+```javascript
+/**
+ * // Definition for a _Node.
+ * function _Node(val, left, right, next) {
+ *    this.val = val === undefined ? null : val;
+ *    this.left = left === undefined ? null : left;
+ *    this.right = right === undefined ? null : right;
+ *    this.next = next === undefined ? null : next;
+ * };
+ */
+
+/**
+ * @param {_Node} root
+ * @return {_Node}
+ */
+var connect = function (root) {
+    if (root === null) {
+        return null;
+    }
+    let queue = [root];
+    while (queue.length > 0) {
+        let n = queue.length;
+        for (let i = 0; i < n; i++) {
+            let node = queue.shift();
+            if (i < n - 1) node.next = queue[0];
+            if (node.left != null) queue.push(node.left);
+            if (node.right != null) queue.push(node.right);
+        }
+    }
+    return root;
+};
+```
+
+### 104. Maximum Depth of Binary Tree
+
+https://leetcode.com/problems/maximum-depth-of-binary-tree/
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxDepth = function (root) {
+    // 二叉树的 最大深度 是指从根节点到最远叶子节点的最长路径上的节点数。
+    let max = 0,
+        queue = [root];
+    if (root === null) {
+        return max;
+    }
+    while (queue.length) {
+        max++;
+        let length = queue.length;
+        while (length--) {
+            let node = queue.shift();
+            node.left && queue.push(node.left);
+            node.right && queue.push(node.right);
+        }
+    }
+    return max;
+};
+```
+
+### 111. Minimum Depth of Binary Tree
+
+https://leetcode.com/problems/minimum-depth-of-binary-tree/
+
+需要注意的是，只有当左右孩子都为空的时候，才说明遍历的最低点了。如果其中一个孩子为空则不是最低点
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var minDepth = function (root) {
+    if (root === null) return 0;
+    let queue = [root];
+    let depth = 0;
+    while (queue.length) {
+        let n = queue.length;
+        depth++;
+        for (let i = 0; i < n; i++) {
+            let node = queue.shift();
+            // 如果左右节点都是null(在遇见的第一个leaf节点上)，则该节点深度最小
+            if (node.left === null && node.right === null) {
+                return depth;
+            }
+            node.left && queue.push(node.left);;
+            node.right && queue.push(node.right);
+        }
+    }
+    return depth;
+};
+```
+
