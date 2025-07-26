@@ -1,5 +1,5 @@
 [二叉树 part01](https://github.com/8YBY8/leetcode-note/blob/main/binarytree.md#-二叉树-part01)
-
+[二叉树 part02](https://github.com/8YBY8/leetcode-note/blob/main/binarytree.md#-二叉树-part01)
 
 # 二叉树 part01
 
@@ -867,7 +867,7 @@ var minDepth = function (root) {
 };
 ```
 
-# rt02
+# 二叉树 part02
 
 ## 226. Invert Binary Tree
 
