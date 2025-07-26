@@ -1030,6 +1030,9 @@ https://leetcode.com/problems/maximum-depth-of-binary-tree/description/
 
 视频链接：https://www.bilibili.com/video/BV1Gd4y1V75u
 
+二叉树节点的深度：指从根节点到该节点的最长简单路径边的条数或者节点数（取决于深度从0开始还是从1开始）
+二叉树节点的高度：指从该节点到叶子节点的最长简单路径边的条数或者节点数（取决于高度从0开始还是从1开始）
+
 Method 1: 递归Recursion
 ```javascript
 /**
