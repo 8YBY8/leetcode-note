@@ -1141,3 +1141,47 @@ https://github.com/8YBY8/leetcode-note/edit/main/binarytree.md#111-minimum-depth
 在递归法，求二叉树的高度用后序遍历，深度用前序遍历。
 <img width="700" height="720" alt="image" src="https://github.com/user-attachments/assets/8c18f286-67d7-49ac-8be0-14c4747e551e" />
 
+## 110. Balanced Binary Tree
+
+https://leetcode.com/problems/balanced-binary-tree/
+
+文章链接：https://programmercarl.com/0110.%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV1Ug411S7my
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isBalanced = function(root) {
+    // 用递归三部曲 + 后序遍历 左右中 当前左子树右子树高度相差大于1就返回-1
+    // 1. 确定递归函数参数以及返回值
+    const getDepth = function(node) {
+        // 2. 确定递归函数终止条件
+        if(node === null) return 0;
+        // 3. 确定单层递归逻辑
+        let leftDepth = getDepth(node.left); //左子树高度
+        // 当判定左子树不为平衡二叉树时,即可直接返回-1
+        if(leftDepth === -1) return -1;
+        let rightDepth = getDepth(node.right); //右子树高度
+        // 当判定右子树不为平衡二叉树时,即可直接返回-1
+        if(rightDepth === -1) return -1;
+        if(Math.abs(leftDepth - rightDepth) > 1) {
+            return -1;
+        } else {
+            return 1 + Math.max(leftDepth, rightDepth);
+        }
+    }
+    return !(getDepth(root) === -1);
+}
+```
+
