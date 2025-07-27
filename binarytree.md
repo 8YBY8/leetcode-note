@@ -1,4 +1,4 @@
-[二叉树 part01](https://github.com/8YBY8/leetcode-note/blob/main/binarytree.md#%E4%BA%8C%E5%8F%89%E6%A0%91-part01)
+<img width="940" height="820" alt="image" src="https://github.com/user-attachments/assets/10136529-04e5-48f8-bb80-8ee201197c14" />[二叉树 part01](https://github.com/8YBY8/leetcode-note/blob/main/binarytree.md#%E4%BA%8C%E5%8F%89%E6%A0%91-part01)
 
 [二叉树 part02](https://github.com/8YBY8/leetcode-note/blob/main/binarytree.md#%E4%BA%8C%E5%8F%89%E6%A0%91-part02)
 
@@ -1238,5 +1238,50 @@ var isBalanced = function (root) {
         node.left && queue.push(node.left);
     }
     return true;
+};
+```
+
+## 257. Binary Tree Paths
+
+https://leetcode.com/problems/binary-tree-paths/
+
+文章链接：https://programmercarl.com/0257.%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%89%80%E6%9C%89%E8%B7%AF%E5%BE%84.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV1ZG411G7Dh
+
+<img width="940" height="820" alt="image" src="https://github.com/user-attachments/assets/07243f30-9335-4483-a2c2-4fd7e9d5bd25" />
+
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {string[]}
+ */
+var binaryTreePaths = function(root) {
+    //递归遍历+递归三部曲
+   let res = [];
+   //1. 确定递归函数 函数参数
+   const getPath = function(node,curPath) {
+    //2. 确定终止条件，到叶子节点就终止
+       if(node.left === null && node.right === null) {
+           curPath += node.val;
+           res.push(curPath);
+           return;
+       }
+       //3. 确定单层递归逻辑
+       curPath += node.val + '->'; // 中
+       node.left && getPath(node.left, curPath); // 左
+       node.right && getPath(node.right, curPath); // 右
+   }
+   getPath(root, '');
+   return res;
 };
 ```
