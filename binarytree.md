@@ -1,4 +1,4 @@
-<img width="940" height="820" alt="image" src="https://github.com/user-attachments/assets/10136529-04e5-48f8-bb80-8ee201197c14" />[二叉树 part01](https://github.com/8YBY8/leetcode-note/blob/main/binarytree.md#%E4%BA%8C%E5%8F%89%E6%A0%91-part01)
+[二叉树 part01](https://github.com/8YBY8/leetcode-note/blob/main/binarytree.md#%E4%BA%8C%E5%8F%89%E6%A0%91-part01)
 
 [二叉树 part02](https://github.com/8YBY8/leetcode-note/blob/main/binarytree.md#%E4%BA%8C%E5%8F%89%E6%A0%91-part02)
 
