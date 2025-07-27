@@ -1137,3 +1137,7 @@ Method 2: 迭代
 https://github.com/8YBY8/leetcode-note/edit/main/binarytree.md#111-minimum-depth-of-binary-tree
 
 # 二叉树 part03
+
+在递归法，求二叉树的高度用后序遍历，深度用前序遍历。
+<img width="700" height="720" alt="image" src="https://github.com/user-attachments/assets/8c18f286-67d7-49ac-8be0-14c4747e551e" />
+
