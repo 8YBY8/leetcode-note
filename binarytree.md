@@ -1413,3 +1413,88 @@ var countNodes = function(root) {
 # 二叉树 part04
 
 ## 513. Find Bottom Left Tree Value
+
+https://leetcode.com/problems/find-bottom-left-tree-value/
+
+文章链接：https://programmercarl.com/0513.%E6%89%BE%E6%A0%91%E5%B7%A6%E4%B8%8B%E8%A7%92%E7%9A%84%E5%80%BC.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV1424y1Z7pn
+
+Method 1: 迭代（更简单）
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var findBottomLeftValue = function(root) {
+    //考虑层序遍历 记录最后一行的第一个节点
+    let queue = [];
+    if(root === null) { 
+        return null;
+    }
+    queue.push(root);
+    let resNode;
+    while(queue.length) {
+        let length = queue.length;
+        for(let i = 0; i < length; i++) {
+            let node = queue.shift();
+            if(i === 0) { // 记录最后一行的第一个节点
+                resNode = node.val;
+            }
+            node.left && queue.push(node.left);
+            node.right && queue.push(node.right);
+        }
+    }
+    return resNode;
+};
+```
+
+Method 2:递归
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var findBottomLeftValue = function (root) {
+    //首先考虑递归遍历 前序遍历 找到最大深度的叶子节点即可
+    let maxDepth = 0, resNode = null;
+    // 1. 确定递归函数的函数参数
+    const dfsTree = function (node, curDepth) {
+        // 2. 确定递归函数终止条件
+        if (node.left === null && node.right === null) {
+            if (curDepth > maxDepth) {
+                maxDepth = curDepth;
+                resNode = node.val;
+            }
+        }
+        if (node.left) {
+            curDepth++;
+            dfsTree(node.left, curDepth);
+            curDepth--;
+        };
+        if (node.right) {
+            curDepth++;
+            dfsTree(node.right, curDepth);
+            curDepth--;
+        };
+    }
+    dfsTree(root, 1);
+    return resNode;
+};
+```
