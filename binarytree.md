@@ -1597,3 +1597,54 @@ var pathSum = function(root, targetSum) {
 };
 ```
 
+## 106. Construct Binary Tree from Inorder and Postorder Traversal
+
+https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
+
+<img width="1292" height="786" alt="image" src="https://github.com/user-attachments/assets/f10c3e05-84f6-4dac-8bc1-6ffce16a405a" />
+
+思路：
+1. 如果数组大小为零的话，说明是空节点了。
+2. 如果不为空，那么取后序数组最后一个元素作为节点元素。
+3. 找到后序数组最后一个元素在中序数组的位置，作为切割点
+4. 切割中序数组，切成中序左数组和中序右数组 （顺序别搞反了，一定是先切中序数组）
+5. 切割后序数组，切成后序左数组和后序右数组
+6. 递归处理左区间和右区间
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {number[]} inorder
+ * @param {number[]} postorder
+ * @return {TreeNode}
+ */
+var buildTree = function(inorder, postorder) {
+    if (!inorder.length) return null;
+    const rootVal = postorder.pop(); // 从后序遍历的数组中获取中间节点的值， 即数组最后一个值
+    let rootIndex = inorder.indexOf(rootVal); // 获取中间节点在中序遍历中的下标
+    const root = new TreeNode(rootVal); // 创建中间节点
+
+    // 切割中序数组
+    // 左闭右开区间：[0, delimiterIndex)
+    let leftInorder = inorder.slice(0, rootIndex);
+    // [rootIndex + 1, end)
+    let rightInorder = inorder.slice(rootIndex + 1);
+
+    // 切割后序数组
+    // 依然左闭右开，注意这里使用了左中序数组大小作为切割点
+    // [0, leftInorder.size)
+    let leftPostorder = postorder.slice(0, rootIndex);
+    // [leftInorder.size(), end)
+    let rightPostorder = postorder.slice(rootIndex);
+    root.left = buildTree(leftInorder, leftPostorder); // 创建左节点
+    root.right = buildTree(rightInorder, rightPostorder); // 创建右节点
+    return root;
+};
+```
