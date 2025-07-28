@@ -1648,3 +1648,51 @@ var buildTree = function(inorder, postorder) {
     return root;
 };
 ```
+
+## 105. Construct Binary Tree from Preorder and Inorder Traversal
+
+https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {number[]} preorder
+ * @param {number[]} inorder
+ * @return {TreeNode}
+ */
+var buildTree = function(preorder, inorder) {
+    if (!preorder.length) return null;
+    const rootVal = preorder.shift(); // 从前序遍历的数组中获取中间节点的值， 即数组第一个值
+    let rootIndex = inorder.indexOf(rootVal); // 获取中间节点在中序遍历中的下标
+    const root = new TreeNode(rootVal); // 创建中间节点
+
+    // 切割中序数组
+    // 左闭右开区间：[0, rootIndex)
+    let leftInorder = inorder.slice(0, rootIndex);
+    // [rootIndex + 1, end)
+    let rightInorder = inorder.slice(rootIndex + 1);
+
+    // 切割前序数组
+    // 依然左闭右开
+    let leftPreorder = preorder.slice(0, rootIndex);
+    let rightPreorder = preorder.slice(rootIndex);
+    
+    root.left = buildTree(leftPreorder, leftInorder); // 创建左节点
+    root.right = buildTree(rightPreorder, rightInorder); // 创建右节点
+
+    return root;
+};
+```
+
+前序和中序可以唯一确定一棵二叉树。
+
+后序和中序可以唯一确定一棵二叉树。
+
+前序和后序不能唯一确定一棵二叉树！，因为没有中序遍历无法确定左右部分，也就是无法分割。
