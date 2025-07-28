@@ -1285,3 +1285,50 @@ var binaryTreePaths = function(root) {
    return res;
 };
 ```
+
+## 404. Sum of Left Leaves
+
+https://leetcode.com/problems/sum-of-left-leaves/
+
+文章链接：https://programmercarl.com/0404.%E5%B7%A6%E5%8F%B6%E5%AD%90%E4%B9%8B%E5%92%8C.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV1GY4y1K7z8
+
+<img width="916" height="748" alt="image" src="https://github.com/user-attachments/assets/0407830b-6a6b-470a-a651-64b4ffdcdc36" />
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var sumOfLeftLeaves = function(root) {
+    //采用后序遍历 递归遍历
+    // 1. 确定递归函数参数
+    const nodesSum = function(node) {
+        // 2. 确定终止条件
+        if(node === null) {
+            return 0;
+        }
+        let leftValue = nodesSum(node.left);
+        let rightValue = nodesSum(node.right);
+        // 3. 单层递归逻辑
+        let midValue = 0;
+        if(node.left && node.left.left === null && node.left.right === null) {
+            midValue = node.left.val;
+        }
+        let sum = midValue + leftValue + rightValue;
+        return sum;
+    }
+    return nodesSum(root);
+};
+```
+
+
