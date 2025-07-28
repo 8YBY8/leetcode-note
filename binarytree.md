@@ -6,6 +6,8 @@
 
 [二叉树 part04](https://github.com/8YBY8/leetcode-note/blob/main/binarytree.md#%E4%BA%8C%E5%8F%89%E6%A0%91-part04)
 
+[二叉树 part05](https://github.com/8YBY8/leetcode-note/blob/main/binarytree.md#%E4%BA%8C%E5%8F%89%E6%A0%91-part05)
+
 # 二叉树 part01
 
 https://programmercarl.com/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
@@ -1696,3 +1698,5 @@ var buildTree = function(preorder, inorder) {
 后序和中序可以唯一确定一棵二叉树。
 
 前序和后序不能唯一确定一棵二叉树！，因为没有中序遍历无法确定左右部分，也就是无法分割。
+
+## 二叉树 part05
