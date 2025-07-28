@@ -3,6 +3,9 @@
 [二叉树 part02](https://github.com/8YBY8/leetcode-note/blob/main/binarytree.md#%E4%BA%8C%E5%8F%89%E6%A0%91-part02)
 
 [二叉树 part03](https://github.com/8YBY8/leetcode-note/blob/main/binarytree.md#%E4%BA%8C%E5%8F%89%E6%A0%91-part03)
+
+[二叉树 part04](https://github.com/8YBY8/leetcode-note/blob/main/binarytree.md#%E4%BA%8C%E5%8F%89%E6%A0%91-part04)
+
 # 二叉树 part01
 
 https://programmercarl.com/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
@@ -1331,4 +1334,82 @@ var sumOfLeftLeaves = function(root) {
 };
 ```
 
+## 222. Count Complete Tree Nodes
 
+https://leetcode.com/problems/count-complete-tree-nodes/
+
+文章链接：https://programmercarl.com/0222.%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+
+视频链接：https://www.bilibili.com/video/BV1eW4y1B7pD
+
+如果是二叉树
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var countNodes = function(root) {
+    //递归法计算二叉树节点数
+    // 1. 确定递归函数参数
+    const getNodeSum = function(node) {
+    //2. 确定终止条件
+        if(node === null) {
+            return 0;
+        }
+    //3. 确定单层递归逻辑
+        let leftNum = getNodeSum(node.left);
+        let rightNum = getNodeSum(node.right);
+        return leftNum + rightNum + 1;
+    }
+    return getNodeSum(root);
+};
+```
+
+如果是完全二叉树
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var countNodes = function(root) {
+    //利用完全二叉树的特点
+    if(root === null) {
+        return 0;
+    }
+    let left = root.left;
+    let right = root.right;
+    let leftDepth = 0, rightDepth = 0;
+    while(left) {
+        left = left.left;
+        leftDepth++;
+    }
+    while(right) {
+        right = right.right;
+        rightDepth++;
+    }
+    if(leftDepth == rightDepth) {
+        return Math.pow(2, leftDepth+1) - 1;
+    }
+    return countNodes(root.left) + countNodes(root.right) + 1;
+};
+```
+
+# 二叉树 part04
+
+## 513. Find Bottom Left Tree Value
