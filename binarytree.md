@@ -1720,6 +1720,8 @@ https://leetcode.com/problems/maximum-binary-tree/
 
 **什么时候递归函数前面加if，什么时候不加if**：一般情况来说：如果让空节点（空指针）进入递归，就不加if，如果不让空节点进入递归，就加if限制一下， 终止条件也会相应的调整
 
+注意类似用数组构造二叉树的题目，每次分隔尽量不要定义新的数组，而是通过下标索引直接在原数组上操作，这样可以节约时间和空间上的开销
+
 ```javascript
 /**
  * Definition for a binary tree node.
