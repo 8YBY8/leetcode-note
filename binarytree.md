@@ -1699,4 +1699,57 @@ var buildTree = function(preorder, inorder) {
 
 前序和后序不能唯一确定一棵二叉树！，因为没有中序遍历无法确定左右部分，也就是无法分割。
 
-## 二叉树 part05
+# 二叉树 part05
+
+## 654. Maximum Binary Tree
+
+https://leetcode.com/problems/maximum-binary-tree/
+
+文章讲解：https://programmercarl.com/0654.%E6%9C%80%E5%A4%A7%E4%BA%8C%E5%8F%89%E6%A0%91.html  
+
+视频讲解：https://www.bilibili.com/video/BV1MG411G7ox  
+
+![654. Maximum Binary Tree](https://file1.kamacoder.com/i/algo/654.%E6%9C%80%E5%A4%A7%E4%BA%8C%E5%8F%89%E6%A0%91.gif)
+
+思路：
+1. 找到数组中最大的值和对应的下标
+2. 最大值所在的下标左区间 构造左子树
+3. 最大值所在的下标右区间 构造右子树
+
+**什么时候递归函数前面加if，什么时候不加if**：一般情况来说：如果让空节点（空指针）进入递归，就不加if，如果不让空节点进入递归，就加if限制一下， 终止条件也会相应的调整
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {number[]} nums
+ * @return {TreeNode}
+ */
+var constructMaximumBinaryTree = function(nums) {
+    const BuildTree = (arr, left, right) => {
+        if (left > right)
+            return null;
+        let maxValue = -1;
+        let maxIndex = -1;
+        // 找到数组中最大的值和对应的下标
+        for (let i = left; i <= right; ++i) {
+            if (arr[i] > maxValue) {
+                maxValue = arr[i];
+                maxIndex = i;
+            }
+        }
+        let root = new TreeNode(maxValue);
+        root.left = BuildTree(arr, left, maxIndex - 1); // 最大值所在的下标左区间 构造左子树 左闭右开：[left, maxValueIndex)
+        root.right = BuildTree(arr, maxIndex + 1, right); // 最大值所在的下标右区间 构造右子树 左闭右开：[maxValueIndex + 1, right)
+        return root;
+    }
+    let root = BuildTree(nums, 0, nums.length - 1);
+    return root;
+};
+```
