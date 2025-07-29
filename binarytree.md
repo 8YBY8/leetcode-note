@@ -2023,3 +2023,106 @@ var getMinimumDifference = function(root) {
     return res
 };
 ```
+
+## 501. Find Mode in Binary Search Tree
+
+https://leetcode.com/problems/find-mode-in-binary-search-tree/
+
+文章链接：https://programmercarl.com/0501.%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%BC%97%E6%95%B0.html  
+
+视频讲解：https://www.bilibili.com/video/BV1fD4y117gp  
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var findMode = function (root) {
+    // 不使用额外空间，使用中序遍历,设置出现最大次数初始值为1
+    let count = 0, maxCount = 1;
+    let pre = root, res = [];
+    // 1.确定递归函数及函数参数
+    const travelTree = function (cur) {
+        // 2. 确定递归终止条件
+        if (cur === null) {
+            return;
+        }
+        // 左
+        travelTree(cur.left); 
+        // 3. 单层递归逻辑
+        // 中
+        if (pre.val === cur.val) { // 与前一个节点数值相同
+            count++;
+        } else { // 与前一个节点数值不同
+            count = 1;
+        }
+        pre = cur; // 更新上一个节点
+        if (count === maxCount) { // 如果和最大值相同，放进result中
+            res.push(cur.val);
+        }
+        if (count > maxCount) { // 如果计数大于最大值频率
+            res = [];           // 很关键的一步，不要忘记清空res，之前res里的元素都失效了
+            maxCount = count;   // 更新最大频率
+            res.push(cur.val);
+        }
+        // 右
+        travelTree(cur.right);
+    }
+    travelTree(root);
+    return res;
+};
+```
+
+## 236. Lowest Common Ancestor of a Binary Tree
+
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+
+视频链接： https://programmercarl.com/0236.%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88.html 
+
+视频链接：https://www.bilibili.com/video/BV1jd4y1B7E2   
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+var lowestCommonAncestor = function (root, p, q) {
+    // 使用递归的方法
+    // 需要从下到上，所以使用后序遍历
+    // 1. 确定递归的函数
+    const travelTree = function (root, p, q) {
+        // 2. 确定递归终止条件
+        if (root === null || root === p || root === q) {
+            return root;
+        }
+        // 3. 确定递归单层逻辑
+        let left = travelTree(root.left, p, q);
+        let right = travelTree(root.right, p, q);
+        if (left !== null && right !== null) {
+            return root;
+        }
+        if (left === null) {
+            return right;
+        }
+        return left; // left可能是null也可能不是null
+    }
+    return travelTree(root, p, q);
+};
+```
