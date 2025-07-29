@@ -1790,3 +1790,79 @@ var mergeTrees = function(root1, root2) {
     return root1;
 };
 ```
+
+## 700. Search in a Binary Search Tree
+
+https://leetcode.com/problems/search-in-a-binary-search-tree/
+
+文章讲解: https://programmercarl.com/0700.%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2.html  
+
+视频讲解：https://www.bilibili.com/video/BV1wG411g7sF
+
+二叉搜索树是一个有序树：
+- 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值；
+- 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值；
+- 它的左、右子树也分别为二叉搜索树
+
+Method 1:递归
+
+思路：
+1. 如果root为空，或者找到这个数值了，就返回root节点。
+2. 如果root->val > val，搜索左子树，如果root->val < val，就搜索右子树，最后如果都没有搜索到，就返回NULL。
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} val
+ * @return {TreeNode}
+ */
+var searchBST = function(root, val) {
+    // 如果root为空，或者找到这个数值了，就返回root节点。
+    if (!root || root.val === val) {
+        return root;
+    }
+    // 如果root->val > val，搜索左子树，如果root->val < val，就搜索右子树，最后如果都没有搜索到，就返回NULL。
+    if (root.val > val)
+        return searchBST(root.left, val);
+    if (root.val < val)
+        return searchBST(root.right, val);
+};
+```
+
+Method 2:迭代
+因为二叉搜索树的节点的有序性，可以不使用辅助栈(模拟深度遍历)或者队列(模拟广度遍历)就可以写出迭代法。
+
+对于二叉搜索树，不需要回溯的过程，因为节点的有序性就帮我们确定了搜索的方向(我们不需要搜索其他节点，也不需要做回溯，查找的路径已经规划好了)。
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} val
+ * @return {TreeNode}
+ */
+var searchBST = function(root, val) {
+    while (root !== null) {
+        if (root.val > val)
+            root = root.left;
+        else if (root.val < val)
+            root = root.right;
+        else 
+            return root;
+    }
+    return null;
+};
+```
