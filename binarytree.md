@@ -1953,3 +1953,73 @@ var isValidBST = function(root) {
 
 # 二叉树 part06
 
+## 530. Minimum Absolute Difference in BST
+
+https://leetcode.com/problems/minimum-absolute-difference-in-bst/
+
+**遇到在二叉搜索树上求什么最值啊，差值之类的，就把它想成在一个有序数组上求最值，求差值，这样就简单多了。**
+
+Method 1:递归 把二叉搜索树转换成有序数组，然后遍历一遍数组统计最小差值
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var getMinimumDifference = function(root) {
+    let arr = [];
+    const buildArr = (root) => {
+        if (root) {
+            buildArr(root.left);
+            arr.push(root.val);
+            buildArr(root.right);
+        }
+    }
+    buildArr(root);
+    let diff = arr[arr.length - 1];
+    for (let i = 1; i < arr.length; ++i) {
+        if (diff > arr[i] - arr[i - 1])
+            diff = arr[i] - arr[i - 1];
+    }
+    return diff;
+};
+```
+
+Method 2:递归 在递归的过程中更新最小值
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var getMinimumDifference = function(root) {
+    let res = Infinity
+    let preNode = null
+    // 中序遍历
+    const inorder = (node) => {
+        if(!node) return
+        inorder(node.left)
+        // 更新res
+        if(preNode) res = Math.min(res, node.val - preNode.val)
+        // 记录前一个节点         
+        preNode = node
+        inorder(node.right)
+    }
+    inorder(root)
+    return res
+};
+```
