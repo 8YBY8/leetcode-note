@@ -1867,3 +1867,84 @@ var searchBST = function(root, val) {
     return null;
 };
 ```
+
+## 98. Validate Binary Search Tree
+
+https://leetcode.com/problems/validate-binary-search-tree/
+
+文章讲解: https://programmercarl.com/0098.%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.html 
+
+视频讲解：https://www.bilibili.com/video/BV18P411n7Q4  
+
+Method 1:递归
+
+思路：要知道中序遍历下，输出的二叉搜索树节点的数值是有序序列。有了这个特性，验证二叉搜索树，就相当于变成了判断一个序列是不是递增的了。
+
+pre变量的作用：这个就是记录二叉搜索树中当前节点的前一个用来比较的节点
+
+为什么pre放在外面而不是方法里面：因为放在外面才可以被递归的每一层访问到，里面的话就是局部变量，每一层都相互独立，就起不到一层的修改让另一层可见的作用了。
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isValidBST = function(root) {
+    let pre = null;
+    const inOrder = (root) => {
+        if (root === null)
+            return true;
+        let left = inOrder(root.left);
+
+        if (pre !== null && pre.val >= root.val)
+            return false;
+        pre = root;
+
+        let right = inOrder(root.right);
+        return left && right;
+    }
+    return inOrder(root);
+};
+```
+
+Method 2:迭代
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isValidBST = function(root) {
+    const queue = [];
+	let cur = root;
+	let pre = null; // 记录前一个节点
+	while (cur !== null || queue.length !== 0) {
+		if (cur !== null) {
+			queue.push(cur);
+			cur = cur.left; // 左
+		} else {
+			cur = queue.pop(); // 中
+			if (pre !== null && cur.val <= pre.val) {
+				return false;
+			}
+			pre = cur;
+			cur = cur.right; // 右
+		}
+	}
+	return true;
+};
+```
