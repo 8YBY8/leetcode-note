@@ -2201,3 +2201,78 @@ var lowestCommonAncestor = function(root, p, q) {
     return null;
 };
 ```
+
+## 701. Insert into a Binary Search Tree
+
+https://leetcode.com/problems/insert-into-a-binary-search-tree/
+
+**只要遍历二叉搜索树，找到空节点 插入元素就可以了 不需要在两个节点之间插入**
+
+Method 1:递归 如何通过递归函数返回值完成了新加入节点的父子关系赋值操作了，下一层将加入节点返回，本层用root->left或者root->right将其接住
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} val
+ * @return {TreeNode}
+ */
+var insertIntoBST = function(root, val) {
+    const setInOrder = (root, val) => {
+        if (root === null) {
+            let node = new TreeNode(val);
+            return node;
+        }
+        if (root.val > val)
+            root.left = setInOrder(root.left, val);
+        else if (root.val < val)
+            root.right = setInOrder(root.right, val);
+        return root;
+    }
+    return setInOrder(root, val);
+};
+```
+
+Method 2:迭代
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} val
+ * @return {TreeNode}
+ */
+var insertIntoBST = function(root, val) {
+    if (root === null) {
+        root = new TreeNode(val);
+    } else {
+        let parent = new TreeNode(0);
+        let cur = root;
+        while (cur) {
+            parent = cur;
+            if (cur.val > val)
+                cur = cur.left;
+            else
+                cur = cur.right;
+        }
+        let node = new TreeNode(val);
+        if (parent.val > val)
+            parent.left = node;
+        else
+            parent.right = node;
+    }
+    return root;
+};
+```
