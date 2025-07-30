@@ -10,6 +10,8 @@
 
 [二叉树 part06](https://github.com/8YBY8/leetcode-note/blob/main/binarytree.md#%E4%BA%8C%E5%8F%89%E6%A0%91-part06)
 
+[二叉树 part07](https://github.com/8YBY8/leetcode-note/blob/main/binarytree.md#%E4%BA%8C%E5%8F%89%E6%A0%91-part07)
+
 # 二叉树 part01
 
 https://programmercarl.com/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
@@ -2124,5 +2126,78 @@ var lowestCommonAncestor = function (root, p, q) {
         return left; // left可能是null也可能不是null
     }
     return travelTree(root, p, q);
+};
+```
+
+# 二叉树 part07
+
+## 235. Lowest Common Ancestor of a Binary Search Tree
+
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+
+Method 1:递归
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+var lowestCommonAncestor = function(root, p, q) {
+    // 使用递归的方法
+    // 1. 使用给定的递归函数lowestCommonAncestor
+    // 2. 确定递归终止条件
+    if(root === null) {
+        return root;
+    }
+    if(root.val > p.val && root.val > q.val) {
+        // 向左子树查询
+         return root.left = lowestCommonAncestor(root.left,p,q);
+    }
+    if(root.val < p.val && root.val < q.val) {
+        // 向右子树查询
+        return root.right = lowestCommonAncestor(root.right,p,q);
+    }
+    return root; //（p->val <= cur->val && cur->val <= q->val）或者 （q->val <= cur->val && cur->val <= p->val）
+};
+```
+
+Method 2:迭代
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+var lowestCommonAncestor = function(root, p, q) {
+    // 使用迭代的方法
+    while(root) {
+        if(root.val > p.val && root.val > q.val) {
+            root = root.left;
+        }else if(root.val < p.val && root.val < q.val) {
+            root = root.right;
+        }else {
+            return root;
+        }
+        
+    }
+    return null;
 };
 ```
