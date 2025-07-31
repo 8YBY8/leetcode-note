@@ -2393,3 +2393,104 @@ var trimBST = function(root, low, high) {
     return root;
 };
 ```
+
+## 108. Convert Sorted Array to Binary Search Tree
+
+https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
+
+文章链接：https://programmercarl.com/0108.%E5%B0%86%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.html  
+
+视频讲解：https://www.bilibili.com/video/BV1uR4y1X7qL  
+
+`int mid = (left + right) / 2;`可能会数值越界，例如left和right都是最大int，这么操作就越界了。所以可以这么写：`int mid = left + ((right - left) / 2);`
+
+思路：
+- initialize start=0 and end=(length of array -1)
+- call recursive method : createTree(nums,start,end)
+ - if start>end return NULL
+ - calculate mid=(start+end)/2
+ - create Node(Root) with nums[mid] as value
+ - node.left = createTree(nums,0,mid-1)
+ - node.right = createTree(nums,mid+1,end)
+ - return node
+
+Method 1:递归
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {number[]} nums
+ * @return {TreeNode}
+ */
+var sortedArrayToBST = function(nums) {
+    const buildTree = (Arr, left, right) => {
+        if (left > right)
+            return null;
+
+        let mid = Math.floor(left + (right - left) / 2); // 如果数组长度为偶数，中间位置有两个元素，取靠左边的
+
+        let root = new TreeNode(Arr[mid]);
+        root.left = buildTree(Arr, left, mid - 1); // 左闭右闭
+        root.right = buildTree(Arr, mid + 1, right); // 左闭右闭
+        return root;
+    }
+    return buildTree(nums, 0, nums.length - 1); // 左闭右闭
+};
+```
+
+Method 2:迭代
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {number[]} nums
+ * @return {TreeNode}
+ */
+var sortedArrayToBST = function (nums) {
+    if (nums.length === 0) {
+        return null;
+    }
+    let root = new TreeNode(0);       //初始根节点
+    let nodeQue = [root];             //放遍历的节点,并初始化
+    let leftQue = [0];                //放左区间的下标,初始化
+    let rightQue = [nums.length - 1];   // 放右区间的下标
+
+    while (nodeQue.length) {
+        let curNode = nodeQue.pop();
+        let left = leftQue.pop();
+        let right = rightQue.pop();
+        let mid = left + Math.floor((right - left) / 2);
+
+        curNode.val = nums[mid];      //将下标为mid的元素给中间节点
+
+        //         处理左区间
+        if (left <= mid - 1) {
+            curNode.left = new TreeNode(0);
+            nodeQue.push(curNode.left);
+            leftQue.push(left);
+            rightQue.push(mid - 1);
+        }
+
+        //         处理右区间
+        if (right >= mid + 1) {
+            curNode.right = new TreeNode(0);
+            nodeQue.push(curNode.right);
+            leftQue.push(mid + 1);
+            rightQue.push(right);
+        }
+    }
+    return root;
+};
+```
