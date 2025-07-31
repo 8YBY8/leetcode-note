@@ -56,7 +56,8 @@ void backtracking(参数) {
 
 https://leetcode.com/problems/combinations/
 
-<img width="1442" height="680" alt="image" src="https://github.com/user-attachments/assets/1e0a42d5-bc13-40c0-978e-db64521c6364" />
+<img width="1444" height="614" alt="image" src="https://github.com/user-attachments/assets/4a63382f-c99d-40be-871a-8df4e5248f75" />
+
 
 回溯法三部曲(思路):
 1. 递归函数的返回值以及参数: 在这里要定义两个全局变量，一个用来存放符合条件单一结果，一个用来存放符合条件结果的集合。
