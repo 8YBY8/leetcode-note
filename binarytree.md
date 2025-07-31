@@ -2349,3 +2349,47 @@ function getMinNode(root) {
 ```
 
 # 二叉树 part08
+
+## 669. Trim a Binary Search Tree
+
+https://leetcode.com/problems/trim-a-binary-search-tree/
+
+文章链接： https://programmercarl.com/0669.%E4%BF%AE%E5%89%AA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.html  
+
+视频讲解： https://www.bilibili.com/video/BV17P41177ud  
+
+<img width="1370" height="922" alt="image" src="https://github.com/user-attachments/assets/cbc83035-f117-400f-9e65-57c8d316506b" />
+<img width="830" height="716" alt="image" src="https://github.com/user-attachments/assets/e8628c64-2ec9-4648-bb41-395d40e07b36" />
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} low
+ * @param {number} high
+ * @return {TreeNode}
+ */
+var trimBST = function(root, low, high) {
+    if(root === null) {
+        return null;
+    }
+    if(root.val < low) { // 点的右边可能有可以区间[low, high]的节点
+        let right = trimBST(root.right, low, high); // 寻找符合区间[low, high]的节点
+        return right;
+    }
+    if(root.val > high) { // 点的左边可能有可以区间[low, high]的节点
+        let left = trimBST(root.left, low, high); // 寻找符合区间[low, high]的节点
+        return left;
+    }
+    root.left = trimBST(root.left, low, high); // root->left接入符合条件的左孩子
+    root.right = trimBST(root.right, low, high); // root->right接入符合条件的右孩子
+    return root;
+};
+```
