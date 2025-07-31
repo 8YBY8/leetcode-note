@@ -24,12 +24,12 @@
     存放结果;
     return;
 }`
-3. 回溯搜索的遍历过程 <img width="1558" height="736" alt="image" src="https://github.com/user-attachments/assets/044a58d0-72e2-4f14-9b2d-b1ff77cf4477" /> 回溯函数遍历过程伪代码 `for (选择：本层集合中元素（树中节点孩子的数量就是集合的大小）) {
+3. 回溯搜索的遍历过程 <img width="1558" height="736" alt="image" src="https://github.com/user-attachments/assets/044a58d0-72e2-4f14-9b2d-b1ff77cf4477" /> 回溯函数遍历过程伪代码 ` for (选择：本层集合中元素（树中节点孩子的数量就是集合的大小）) {
     处理节点;
     backtracking(路径，选择列表); // 递归
     回溯，撤销处理结果
 
-}`
+} `
 
 回溯算法模板框架:
 ```cpp
