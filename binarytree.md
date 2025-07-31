@@ -2494,3 +2494,71 @@ var sortedArrayToBST = function (nums) {
     return root;
 };
 ```
+
+## 538. Convert BST to Greater Tree
+
+https://leetcode.com/problems/convert-bst-to-greater-tree/
+
+需要反中序(右中左)遍历这个二叉树，然后顺序累加就可以
+
+Method 1:递归
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var convertBST = function(root) {
+    let pre = 0; // 记录前一个节点的数值
+    const ReverseInOrder = (cur) => { // 右中左遍历
+        if(cur) {
+            ReverseInOrder(cur.right); // 右
+            cur.val += pre;            // 中
+            pre = cur.val;             // 中
+            ReverseInOrder(cur.left);  // 左
+        }
+    }
+    ReverseInOrder(root);
+    return root;
+};
+```
+
+Method 2:迭代
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var convertBST = function(root) {
+    let pre = 0; // 记录前一个节点的数值
+    let cur = root;
+    let stack = [];
+    while (cur !== null || stack.length !== 0) {
+        while (cur !== null) {
+            stack.push(cur);
+            cur = cur.right; // 右
+        }
+        cur = stack.pop(); // 中
+        cur.val += pre;
+        pre = cur.val;
+        cur = cur.left; // 左
+    }
+    return root;
+};
+```
+
