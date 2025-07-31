@@ -56,6 +56,14 @@ void backtracking(参数) {
 
 https://leetcode.com/problems/combinations/
 
+<img width="1442" height="680" alt="image" src="https://github.com/user-attachments/assets/1e0a42d5-bc13-40c0-978e-db64521c6364" />
+
+回溯法三部曲(思路):
+1. 递归函数的返回值以及参数: 在这里要定义两个全局变量，一个用来存放符合条件单一结果，一个用来存放符合条件结果的集合。
+2. 回溯函数终止条件：path这个数组的大小如果达到k，说明我们找到了一个子集大小为k的组合了
+3. 单层搜索的过程：回溯法的搜索过程就是一个树型结构的遍历过程，在如下图中，可以看出for循环用来横向遍历，递归的过程是纵向遍历。
+
+startIndex 就是防止出现重复的组合
 ```javascript
 /**
  * @param {number} n
@@ -64,8 +72,8 @@ https://leetcode.com/problems/combinations/
  */
 var combine = function (n, k) {
     // 回溯法
-    let result = [],
-        path = [];
+    let result = [], // 存放符合条件结果的集合
+        path = []; // 用来存放符合条件结果
     let backtracking = (_n, _k, startIndex) => {
         // 终止条件
         if (path.length === _k) {
@@ -74,7 +82,41 @@ var combine = function (n, k) {
         }
         // 循环本层集合元素
         for (let i = startIndex; i <= _n; i++) {
-            path.push(i);
+            path.push(i); // 处理节点
+            //   递归
+            backtracking(_n, _k, i + 1);
+            //   回溯操作
+            path.pop();
+        }
+    };
+    backtracking(n, k, 1);
+    return result;
+};
+```
+
+剪枝优化
+<img width="1588" height="1054" alt="image" src="https://github.com/user-attachments/assets/c6eb31f2-cb3f-4947-8491-195d9c48073d" />
+如果for循环选择的起始位置之后的元素个数 已经不足 我们需要的元素个数了，那么就没有必要搜索了
+
+```javascript
+/**
+ * @param {number} n
+ * @param {number} k
+ * @return {number[][]}
+ */
+var combine = function (n, k) {
+    // 回溯法
+    let result = [], // 存放符合条件结果的集合
+        path = []; // 用来存放符合条件结果
+    let backtracking = (_n, _k, startIndex) => {
+        // 终止条件
+        if (path.length === _k) {
+            result.push(path.slice());
+            return;
+        }
+        // 循环本层集合元素
+        for (let i = startIndex; i <= _n - (_k - path.length) + 1; i++) {
+            path.push(i); // 处理节点
             //   递归
             backtracking(_n, _k, i + 1);
             //   回溯操作
