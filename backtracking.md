@@ -99,6 +99,8 @@ var combine = function (n, k) {
 <img width="1588" height="1054" alt="image" src="https://github.com/user-attachments/assets/c6eb31f2-cb3f-4947-8491-195d9c48073d" />
 如果for循环选择的起始位置之后的元素个数 已经不足 我们需要的元素个数了，那么就没有必要搜索了
 
+**i那里的剪枝可以这么理解，假设从i开始取，则从i到n一共有n-i+1个元素，而当前还需要k-path.size()个元素，所以必须满足n-i+1>=k-path.size()，移项就可以得到i<=n+1-(k-path.size())**
+
 ```javascript
 /**
  * @param {number} n
@@ -128,3 +130,58 @@ var combine = function (n, k) {
     return result;
 };
 ```
+
+## 216. Combination Sum III
+
+https://leetcode.com/problems/combination-sum-iii/
+
+文章链接：https://programmercarl.com/0216.%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8CIII.html   
+
+视频讲解：https://www.bilibili.com/video/BV1wg411873x
+
+<img width="2026" height="1046" alt="image" src="https://github.com/user-attachments/assets/e592f65a-59ad-49b0-a1d5-8600dcb1b04a" />
+
+<img width="2018" height="1010" alt="image" src="https://github.com/user-attachments/assets/c4a7c043-57cd-4c0e-9eac-dd17ef5c8dc7" />
+已选元素总和如果已经大于n（图中数值为4）了，那么往后遍历就没有意义了，直接剪掉。
+
+**i那里的剪枝可以这么理解，假设从i开始取，则从i到n一共有n-i+1个元素，而当前还需要k-path.size()个元素，所以必须满足n-i+1>=k-path.size()，移项就可以得到i<=n+1-(k-path.size())**
+
+```javascript
+/**
+ * @param {number} k
+ * @param {number} n
+ * @return {number[][]}
+ */
+var combinationSum3 = function (k, n) {
+    // 回溯法
+    let result = [], // 存放结果集
+        path = []; // 符合条件的结果
+    const backtracking = (_k, targetSum, sum, startIndex) => {
+        if (sum > targetSum) { // 剪枝操作
+            return;
+        }
+        // 终止条件
+        if (path.length === _k) {
+            if (sum === targetSum) {
+                result.push(path.slice());
+            }
+            // 如果总和不相等，就直接返回
+            return;
+        }
+
+        // 循环当前节点，因为只使用数字1到9，所以最大是9
+        for (let i = startIndex; i <= 9 - (_k - path.length) + 1; i++) {
+            path.push(i);
+            sum += i;
+            // 回调函数
+            backtracking(_k, targetSum, sum, i + 1);
+            // 回溯
+            sum -= i;
+            path.pop();
+        }
+    };
+    backtracking(k, n, 0, 1);
+    return result;
+};
+```
+
