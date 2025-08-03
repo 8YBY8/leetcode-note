@@ -185,3 +185,39 @@ var combinationSum3 = function (k, n) {
 };
 ```
 
+## 17. Letter Combinations of a Phone Number
+
+https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+
+![Uploading image.png…]()
+
+
+```javascript
+/**
+ * @param {string} digits
+ * @return {string[]}
+ */
+var letterCombinations = function (digits) {
+    const k = digits.length;
+    const map = ["", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"];
+    if (!k) return [];
+    if (k === 1) return map[digits].split("");
+
+    const res = [], path = [];
+    backtracking(digits, k, 0);
+    return res;
+
+    function backtracking(n, k, a) {
+        if (path.length === k) {
+            res.push(path.join(""));
+            return;
+        }
+        for (const v of map[n[a]]) { // 取数字对应的字符集
+            path.push(v); // 处理
+            backtracking(n, k, a + 1); // 递归，注意a+1，一下层要处理下一个数字了
+            path.pop(); // 回溯
+        }
+    }
+};
+```
+
