@@ -220,3 +220,123 @@ var letterCombinations = function (digits) {
 };
 ```
 
+## 39. Combination Sum
+
+https://leetcode.com/problems/combination-sum/
+
+<img width="1630" height="896" alt="image" src="https://github.com/user-attachments/assets/9438855e-12fb-48bd-b051-580fb73382b8" />
+
+
+```javascript
+/**
+ * @param {number[]} candidates
+ * @param {number} target
+ * @return {number[][]}
+ */
+var combinationSum = function (candidates, target) {
+    const res = [], path = [];
+    candidates.sort((a, b) => a - b); // 需要排序
+    
+    function backtracking(j, sum) {
+        if (sum === target) {
+            res.push(Array.from(path));
+            return;
+        }
+        for (let i = j; i < candidates.length; i++) {
+            const n = candidates[i];
+            if (n > target - sum) break; // 如果 sum + candidates[i] > target 就终止遍历
+            path.push(n);
+            sum += n;
+            backtracking(i, sum); // 不用i+1了，表示可以重复读取当前的数
+            path.pop();
+            sum -= n;
+        }
+    }
+    
+    backtracking(0, 0);
+    return res;
+};
+```
+
+## 40. Combination Sum II
+
+https://leetcode.com/problems/combination-sum-ii/
+
+```javascript
+/**
+ * @param {number[]} candidates
+ * @param {number} target
+ * @return {number[][]}
+ */
+var combinationSum2 = function(candidates, target) {
+    const res = []; path = [], len = candidates.length;
+    candidates.sort((a,b)=>a-b);
+    backtracking(0, 0);
+    return res;
+    function backtracking(sum, i) {
+        if (sum === target) {
+            res.push(Array.from(path));
+            return;
+        }
+        for(let j = i; j < len; j++) {
+            const n = candidates[j];
+            // 要对同一树层使用过的元素进行跳过
+            if(j > i && candidates[j] === candidates[j-1]){
+              //若当前元素和前一个元素相等
+              //则本次循环结束，防止出现重复组合
+              continue;
+            }
+            //如果当前元素值大于目标值-总和的值
+            //由于数组已排序，那么该元素之后的元素必定不满足条件
+            //直接终止当前层的递归
+            if(n > target - sum) break;
+            path.push(n);
+            sum += n;
+            backtracking(sum, j + 1);
+            path.pop();
+            sum -= n;
+        }
+    }
+};
+```
+
+## 131. Palindrome Partitioning
+
+https://leetcode.com/problems/palindrome-partitioning/
+
+<img width="1456" height="840" alt="image" src="https://github.com/user-attachments/assets/e9e14a78-5a10-401e-89dd-8d9e24c778cd" />
+
+
+```javascript
+/**
+ * @param {string} s
+ * @return {string[][]}
+ */
+var partition = function (s) {
+    const res = [], path = [], len = s.length;
+    backtracking(0);
+    return res;
+    function backtracking(startIndex) {
+        // 如果起始位置已经大于s的大小，说明已经找到了一组分割方案了
+        if (startIndex >= len) {
+            res.push(Array.from(path));
+            return;
+        }
+        for (let i = startIndex; i < len; i++) {
+            if (!isPalindrome(s, startIndex, i)) continue; // 不是回文，跳过
+            // 是回文子串
+            // 获取[startIndex,i]在s中的子串
+            path.push(s.slice(startIndex, i + 1)); 
+            backtracking(i + 1);
+            path.pop();
+        }
+    }
+};
+
+const isPalindrome = (s, l, r) => {
+    for (let i = l, j = r; i < j; i++, j--) {
+        if (s[i] !== s[j]) return false;
+    }
+    return true;
+}
+```
