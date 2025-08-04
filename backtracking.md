@@ -189,8 +189,7 @@ var combinationSum3 = function (k, n) {
 
 https://leetcode.com/problems/letter-combinations-of-a-phone-number/
 
-![Uploading image.png…]()
-
+<img width="1486" height="728" alt="image" src="https://github.com/user-attachments/assets/7f1bf204-2b1e-4d62-a3dd-a2e3e63c8c63" />
 
 ```javascript
 /**
