@@ -224,7 +224,7 @@ var letterCombinations = function (digits) {
 };
 ```
 
-# 回溯算法 part01
+# 回溯算法 part02
 
 ## 39. Combination Sum
 
