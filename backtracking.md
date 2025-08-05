@@ -356,3 +356,37 @@ const isPalindrome = (s, l, r) => {
 ## 93. Restore IP Addresses
 
 https://leetcode.com/problems/restore-ip-addresses/
+
+<img width="1594" height="734" alt="image" src="https://github.com/user-attachments/assets/0b99aabc-4967-4eb2-b528-894803c3a4b7" />
+
+```javascript
+/**
+ * @param {string} s
+ * @return {string[]}
+ */
+var restoreIpAddresses = function (s) {
+    const res = [], // 记录结果
+        path = [];
+    backtracking(0);
+    return res;
+    function backtracking(startIndex) {
+        const len = path.length;
+        if (len > 4) return;
+        // 已切成4段并且已经包括最后一个数，在每个段之间插入"." 加到res里
+        if (len === 4 && startIndex === s.length) {
+            res.push(path.join("."));
+            return;
+        }
+        for (let j = startIndex; j < s.length; j++) {
+            const str = s.slice(startIndex, j + 1);
+            // 如果大于255了不合法
+            if (str.length > 3 || +str > 255) break; // +str converts the string to a number
+            // 0开头的数字不合法
+            if (str.length > 1 && str[0] === "0") break;
+            path.push(str);
+            backtracking(j + 1);
+            path.pop(); // 回溯
+        }
+    }
+};
+```
