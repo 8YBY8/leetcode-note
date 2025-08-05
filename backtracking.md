@@ -390,3 +390,37 @@ var restoreIpAddresses = function (s) {
     }
 };
 ```
+
+## 78. Subsets
+
+https://leetcode.com/problems/subsets/
+
+<img width="1546" height="902" alt="image" src="https://github.com/user-attachments/assets/1d4945dc-15b5-4d53-acfd-c2c5ffb4d2cf" />
+
+**子集是收集树形结构中树的所有节点的结果。而组合问题、分割问题是收集树形结构中叶子节点的结果。**
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var subsets = function (nums) {
+    let result = [];
+    let path = [];
+    function backtracking(startIndex) {
+        result.push(path.slice()); // 收集子集，要放在终止添加的上面，否则会漏掉自己
+        if (startIndex >= nums.length) { // 终止条件可以不加
+            return;
+        }
+        for (let i = startIndex; i < nums.length; i++) {
+            path.push(nums[i]);
+            backtracking(i + 1);
+            path.pop();
+        };
+    }
+    backtracking(0);
+    return result;
+};
+```
+
+
