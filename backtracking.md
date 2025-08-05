@@ -423,4 +423,43 @@ var subsets = function (nums) {
 };
 ```
 
+## 90. Subsets II
+
+https://leetcode.com/problems/subsets-ii/
+
+本题就是40.组合总和II 和 78.子集的结合
+
+<img width="1752" height="1036" alt="image" src="https://github.com/user-attachments/assets/ddb05da3-5d77-4b6f-8b28-1da149007778" />
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var subsetsWithDup = function (nums) {
+    let res = [],
+        path = [];
+    nums = nums.sort(); // 去重需要排序
+    function backtracking(startIndex) {
+        res.push(path.slice());
+        if (startIndex > nums.length - 1) {
+            return
+        }
+        for (let i = startIndex; i < nums.length; i++) {
+            // 我们要对同一树层使用过的元素进行跳过
+            if (i > startIndex && nums[i] === nums[i - 1]) {
+                //若当前元素和前一个元素相等
+                //则本次循环结束，防止出现重复组合
+                continue;
+            }
+            path.push(nums[i]);
+            backtracking(i + 1);
+            path.pop();
+        }
+    }
+    backtracking(0);
+    return res;
+};
+```
+
 
