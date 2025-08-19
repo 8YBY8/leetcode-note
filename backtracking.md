@@ -4,6 +4,7 @@
 
 [回溯算法 part03](https://github.com/8YBY8/leetcode-note/blob/main/backtracking.md#%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95-part03)
 
+[回溯算法 part04](https://github.com/8YBY8/leetcode-note/blob/main/backtracking.md#%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95-part04)
 
 
 # 回溯算法 part01
@@ -462,4 +463,51 @@ var subsetsWithDup = function (nums) {
 };
 ```
 
+# 回溯算法 part04
 
+## 491. Non-decreasing Subsequences
+
+文章链接：https://programmercarl.com/0491.%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97.html
+
+视频讲解：https://www.bilibili.com/video/BV1cy4y167mM  
+
+```javasscript
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var findSubsequences = function(nums) {
+    let result = [];
+    let path = [];
+    function backtracing(startIndex) {
+        if(path.length > 1) {
+            result.push(path.slice())
+            // 注意这里不要加return，要取树上的节点
+        }
+        let uset = new Set(); // 使用set对本层元素进行去重
+        for(let i = startIndex; i < nums.length; i++) {
+            if((path.length > 0 && nums[i] < path[path.length - 1]) || uset.has(nums[i])) {
+                continue;
+            }
+            uset.add(nums[i]); // 记录这个元素在本层用过了，本层后面不能再用了
+            path.push(nums[i]);
+            backtracing(i + 1);
+            path.pop();
+        }
+    }
+    backtracing(0);
+    return result;
+};
+```
+
+## 49. Group Anagrams
+
+https://leetcode.com/problems/group-anagra
+
+文章链接：https://programmercarl.com/0046.%E5%85%A8%E6%8E%92%E5%88%97.html
+
+视频讲解：https://www.bilibili.com/video/BV19v4y1S79W/
+
+```javascript
+
+```
