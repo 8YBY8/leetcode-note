@@ -781,7 +781,83 @@ void backtracking(参数) {
 
 ### 切割问题
 
+切割过的地方不能重复切割所以递归函数需要传入i + 1
+
+<img width="1150" height="872" alt="image" src="https://github.com/user-attachments/assets/178306ca-ef16-4a3c-a102-3c90bbf99572" />
 
 ### 子集问题
 
+#### 子集问题（一）
 
+在树形结构中子集问题是要收集所有节点的结果，而组合问题是收集叶子节点的结果
+
+<img width="1546" height="902" alt="image" src="https://github.com/user-attachments/assets/4548e948-2e8b-4879-9785-a2d5bac0e26d" />
+
+子集问题（二）
+
+<img width="1730" height="972" alt="image" src="https://github.com/user-attachments/assets/ccc3e120-1c90-4a65-ae28-9c2273c05ccf" />
+
+### 递增子序列
+
+<img width="1978" height="942" alt="image" src="https://github.com/user-attachments/assets/de96277d-9d93-4d93-aa3b-34b8ea4e6a9e" />
+
+### 排列问题
+
+#### 排列问题（一）
+
+每层都是从0开始搜索而不是startIndex
+
+需要used数组记录path里都放了哪些元素了
+
+<img width="1882" height="964" alt="image" src="https://github.com/user-attachments/assets/99844810-2e5d-492a-b84a-bb3386c3ee3c" />
+
+#### 排列问题（二）
+
+<img width="1576" height="984" alt="image" src="https://github.com/user-attachments/assets/42c6ad98-56cf-4895-9a5e-f272dc81b9b8" />
+
+### 去重问题
+
+使用set去重的版本相对于used数组的版本效率都要低很多
+
+### 重新安排行程（图论额外拓展）
+
+也算是图论里深搜
+
+<img width="1306" height="946" alt="image" src="https://github.com/user-attachments/assets/b31e0ab6-f3d2-461f-9eef-1fa4034aefc0" />
+
+### 棋盘问题
+
+#### N皇后问题
+
+只要搜索到了树的叶子节点，说明就找到了皇后们的合理位置了
+
+棋盘的宽度就是for循环的长度，递归的深度就是棋盘的高度，这样就可以套进回溯法的模板里了
+
+#### 解数独问题
+
+棋盘很难的题目
+
+### 性能分析
+
+子集问题分析：
+- 时间复杂度：O(2^n)，因为每一个元素的状态无外乎取与不取，所以时间复杂度为O(2^n)
+- 空间复杂度：O(n)，递归深度为n，所以系统栈所用空间为O(n)，每一层递归所用的空间都是常数级别，注意代码里的result和path都是全局变量，就算是放在参数里，传的也是引用，并不会新申请内存空间，最终空间复杂度为O(n)
+
+排列问题分析：
+- 时间复杂度：O(n!)，这个可以从排列的树形图中很明显发现，每一层节点为n，第二层每一个分支都延伸了n-1个分支，再往下又是n-2个分支，所以一直到叶子节点一共就是 n * n-1 * n-2 * ..... 1 = n!
+- 空间复杂度：O(n)，和子集问题同理。
+
+组合问题分析：
+- 时间复杂度：O(2^n)，组合问题其实就是一种子集的问题，所以组合问题最坏的情况，也不会超过子集问题的时间复杂度
+- 空间复杂度：O(n)，和子集问题同理。
+
+N皇后问题分析：
+- 时间复杂度：O(n!) ，其实如果看树形图的话，直觉上是O(n^n)，但皇后之间不能见面所以在搜索的过程中是有剪枝的，最差也就是O（n!），n!表示n * (n-1) * .... * 1
+- 空间复杂度：O(n)，和子集问题同理。
+
+解数独问题分析：
+- 时间复杂度：O(9^m) , m是'.'的数目
+- 空间复杂度：O(n^2)，递归的深度是n^2
+
+
+<img width="836" height="1360" alt="image" src="https://github.com/user-attachments/assets/8903c23a-8710-493d-80ff-3dbb62e4aece" />
