@@ -586,3 +586,141 @@ var permuteUnique = function (nums) {
     return result;
 };
 ```
+
+## 51. N-Queens
+
+https://leetcode.com/problems/n-queens
+
+https://programmercarl.com/0051.N%E7%9A%87%E5%90%8E.html   
+
+视频讲解：https://www.bilibili.com/video/BV1Rd4y1c7Bq 
+
+```javascript
+/**
+ * @param {number} n
+ * @return {string[][]}
+ */
+var solveNQueens = function(n) {
+    const ans = [];
+	const path = [];
+	const matrix = new Array(n).fill(0).map(() => new Array(n).fill("."));
+	// 判断是否能相互攻击
+	const canAttack = (matrix, row, col) => {
+		let i;
+		let j;
+		// 判断正上方和正下方是否有皇后
+		for (i = 0, j = col; i < n; i++) {
+			if (matrix[i][j] === "Q") {
+				return true;
+			}
+		}
+		// 判断正左边和正右边是否有皇后
+		for (i = row, j = 0; j < n; j++) {
+			if (matrix[i][j] === "Q") {
+				return true;
+			}
+		}
+		// 判断左上方是否有皇后
+		for (i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+			if (matrix[i][j] === "Q") {
+				return true;
+			}
+		}
+         // 判断右上方是否有皇后
+		for (i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++) {
+			if (matrix[i][j] === "Q") {
+				return true;
+			}
+		}
+		return false;
+	};
+	const backtrack = (matrix, row, col) => {
+		if (path.length === matrix.length) {
+			ans.push(path.slice());
+			return;
+		}
+		for (let i = row; i < matrix.length; i++) {
+			for (let j = col; j < matrix.length; j++) {
+				// 当前位置会导致互相攻击 继续下一轮搜索
+				if (canAttack(matrix, i, j)) {
+					continue;
+				}
+				matrix[i][j] = "Q";
+				path.push(matrix[i].join(""));
+				// 另起一行搜索 同一行只能有一个皇后
+				backtrack(matrix, i + 1, 0);
+				matrix[i][j] = ".";
+				path.pop();
+			}
+		}
+	};
+	backtrack(matrix, 0, 0);
+	return ans;
+};
+```
+
+## 37. Sudoku Solver
+
+https://leetcode.com/problems/sudoku-solver/
+
+https://programmercarl.com/0037.%E8%A7%A3%E6%95%B0%E7%8B%AC.html   
+
+视频讲解：https://www.bilibili.com/video/BV1TW4y1471V
+
+```javascript
+/**
+ * @param {character[][]} board
+ * @return {void} Do not return anything, modify board in-place instead.
+ */
+var solveSudoku = function(board) {
+    function isValid(row, col, val, board) {
+        let len = board.length
+        // 行不能重复
+        for(let i = 0; i < len; i++) {
+            if(board[row][i] === val) {
+                return false
+            }
+        }
+        // 列不能重复
+        for(let i = 0; i < len; i++) {
+            if(board[i][col] === val) {
+                return false
+            }
+        }
+        let startRow = Math.floor(row / 3) * 3
+        let startCol = Math.floor(col / 3) * 3
+
+        for(let i = startRow; i < startRow + 3; i++) {
+            for(let j = startCol; j < startCol + 3; j++) {
+                if(board[i][j] === val) {
+                    return false
+                }
+            }
+        }
+
+        return true
+    }
+
+    function backTracking() {
+        for(let i = 0; i < board.length; i++) {
+            for(let j = 0; j < board[0].length; j++) {
+                if(board[i][j] !== '.') continue
+                for(let val = 1; val <= 9; val++) {
+                    if(isValid(i, j, `${val}`, board)) {
+                        board[i][j] = `${val}`
+                        if (backTracking()) {
+                            return true
+                        }
+
+                        board[i][j] = `.`
+                    }
+                }
+                return false
+            }
+        }
+        return true
+    }
+    backTracking(board)
+    return board
+};
+```
