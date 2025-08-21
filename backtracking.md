@@ -508,6 +508,33 @@ https://leetcode.com/problems/group-anagra
 
 视频讲解：https://www.bilibili.com/video/BV19v4y1S79W/
 
-```javascript
+排列问题的不同：
+- 每层都是从0开始搜索而不是startIndex
+- 需要used数组记录path里都放了哪些元素了
 
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var permute = function(nums) {
+    let res = [];
+    let path = [];
+    function backtracking (n, used) {
+        if (path.length == n.length) {
+            res.push(path.slice());
+            return;
+        }
+        for (let i = 0; i < n.length; i ++) {
+            if (used[i] == true) continue; // path里已经收录的元素，直接跳过
+            path.push(n[i]);
+            used[i] = true;
+            backtracking(n, used);
+            path.pop();
+            used[i] = false;
+        }
+    }
+    backtracking(nums, [])
+    return res;
+};
 ```
