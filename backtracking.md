@@ -724,3 +724,64 @@ var solveSudoku = function(board) {
     return board
 };
 ```
+
+## 总结
+
+https://programmercarl.com/%E5%9B%9E%E6%BA%AF%E6%80%BB%E7%BB%93.html
+
+回溯法的模板
+```
+void backtracking(参数) {
+    if (终止条件) {
+        存放结果;
+        return;
+    }
+
+    for (选择：本层集合中元素（树中节点孩子的数量就是集合的大小）) {
+        处理节点;
+        backtracking(路径，选择列表); // 递归
+        回溯，撤销处理结果
+    }
+}
+```
+
+### 组合问题
+
+<img width="1588" height="1054" alt="image" src="https://github.com/user-attachments/assets/f5c666ed-26cb-4595-b1c4-df9a7508c40b" />
+
+剪枝精髓是：for循环在寻找起点的时候要有一个范围，如果这个起点到集合终止之间的元素已经不够题目要求的k个元素了，就没有必要搜索了
+
+### 组合总和
+
+#### 组合总和（一）
+
+已选元素总和如果已经大于n（题中要求的和）了，那么往后遍历就没有意义了，直接剪掉
+
+<img width="2018" height="1010" alt="image" src="https://github.com/user-attachments/assets/7bb072bf-6aec-44a9-b5f1-56cf201f1220" />
+
+#### 组合总和（二）
+
+对于组合问题，什么时候需要startIndex：如果是一个集合来求组合的话，就需要startIndex。如果是多个集合取组合，各个集合之间相互不影响，那么就不用startIndex。
+
+<img width="1660" height="868" alt="image" src="https://github.com/user-attachments/assets/a754bd61-2664-49d0-92cd-4a9257fdf659" />
+
+#### 组合总和（三）
+
+<img width="1768" height="1020" alt="image" src="https://github.com/user-attachments/assets/ad74139f-5e8d-49c0-8e45-42276f3d65e4" />
+
+图中将used的变化用橘黄色标注上，可以看出在candidates[i] == candidates[i - 1]相同的情况下：
+- used[i - 1] == true，说明同一树枝candidates[i - 1]使用过
+- used[i - 1] == false，说明同一树层candidates[i - 1]使用过
+
+### 多个集合求组合
+
+因为本题每一个数字代表的是不同集合，也就是求不同集合之间的组合，所以这里for循环不是从startIndex开始遍历的。
+
+<img width="1486" height="728" alt="image" src="https://github.com/user-attachments/assets/5fadf08f-0197-46ae-98eb-ef41c579f5ad" />
+
+### 切割问题
+
+
+### 子集问题
+
+
