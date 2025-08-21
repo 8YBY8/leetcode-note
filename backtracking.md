@@ -547,6 +547,9 @@ https://leetcode.com/problems/permutations-ii/
 
 需要去重，所以一定要对元素进行排序，这样我们才方便通过相邻的节点来判断是否重复使用了
 
+<img width="1894" height="1098" alt="image" src="https://github.com/user-attachments/assets/c19b3313-3e60-4ab0-b7a7-2c10225877a1" />
+
+
 ```javascript
 /**
  * @param {number[]} nums
