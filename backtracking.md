@@ -512,6 +512,8 @@ https://leetcode.com/problems/group-anagra
 - 每层都是从0开始搜索而不是startIndex
 - 需要used数组记录path里都放了哪些元素了
 
+<img width="1704" height="910" alt="image" src="https://github.com/user-attachments/assets/4d43adee-58b6-4f7c-bd76-e114416e5367" />
+
 ```javascript
 /**
  * @param {number[]} nums
@@ -536,5 +538,48 @@ var permute = function(nums) {
     }
     backtracking(nums, [])
     return res;
+};
+```
+
+## 47. Permutations II
+
+https://leetcode.com/problems/permutations-ii/
+
+需要去重，所以一定要对元素进行排序，这样我们才方便通过相邻的节点来判断是否重复使用了
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var permuteUnique = function (nums) {
+    nums.sort(); // 排序
+    let result = [];
+    let path = [];
+
+    function backtracing( used) {
+        // 此时说明找到了一组
+        if (path.length === nums.length) {
+            result.push(path.slice());
+            return;
+        }
+        for (let i = 0; i < nums.length; i++) {
+            // used[i - 1] == true，说明同一树枝nums[i - 1]使用过
+            // used[i - 1] == false，说明同一树层nums[i - 1]使用过
+            // 如果同一树层nums[i - 1]使用过则直接跳过
+            if (i > 0 && nums[i] === nums[i - 1] && !used[i - 1]) {
+                continue;
+            }
+            if (!used[i]) {
+                path.push(nums[i]);
+                used[i] = true;
+                backtracing(used);
+                path.pop();
+                used[i] = false;
+            }
+        }
+    }
+    backtracing([]);
+    return result;
 };
 ```
