@@ -69,3 +69,32 @@ var wiggleMaxLength = function (nums) {
     return result;
 };
 ```
+
+## 53. Maximum Subarray
+
+https://leetcode.com/problems/maximum-subarray/
+
+https://programmercarl.com/0053.%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C.html
+
+![Maximum Subarray](https://file1.kamacoder.com/i/algo/53.%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C.gif)
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function (nums) {
+    let result = -Infinity
+    let count = 0
+    for (let i = 0; i < nums.length; i++) {
+        count += nums[i]
+        if (count > result) { // 取区间累计的最大值（相当于不断确定最大子序终止位置）
+            result = count
+        }
+        if (count < 0) { // 相当于重置最大子序起始位置，因为遇到负数一定是拉低总和
+            count = 0
+        }
+    }
+    return result
+};
+```
