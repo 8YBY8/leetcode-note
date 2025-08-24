@@ -12,6 +12,10 @@ https://programmercarl.com/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%B
 
 贪心没有套路，说白了就是常识性推导加上举反例。
 
+贪心的思考方式（局部最优，全局最优）
+
+局部最优可以推出全局最优。
+
 ## 455. Assign Cookies
 
 https://leetcode.com/problems/assign-cookies/
