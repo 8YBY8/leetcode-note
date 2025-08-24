@@ -179,4 +179,42 @@ var jump = function (nums) {
 };
 ```
 
+## 1005. Maximize Sum Of Array After K Negations
 
+https://leetcode.com/problems/maximize-sum-of-array-after-k-negations/
+
+本题的解题步骤为：
+- 第一步：将数组按照绝对值大小从大到小排序，注意要按照绝对值的大小
+- 第二步：从前向后遍历，遇到负数将其变为正数，同时K--
+- 第三步：如果K还大于0，那么反复转变数值最小的元素，将K用完
+- 第四步：求和
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var largestSumAfterKNegations = function (nums, k) {
+    // 将数组按照绝对值大小从大到小排序
+    nums.sort((a, b) => Math.abs(b) - Math.abs(a));
+
+    // 从前向后遍历，遇到负数将其变为正数，同时K--
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] < 0 && k > 0) {
+            nums[i] = - nums[i];
+            k--;
+        }
+    }
+
+    // 如果K还大于0，那么反复转变数值最小的元素，将K用完
+    while (k > 0) {
+        nums[nums.length - 1] = - nums[nums.length - 1];
+        k--;
+    }
+
+    // 求和
+    // 使用箭头函数的隐式返回值时，需使用简写省略花括号，否则要在 a + b 前加上 return
+    return nums.reduce((a, b) => a + b);
+};
+```
