@@ -99,3 +99,55 @@ var maxSubArray = function (nums) {
     return result
 };
 ```
+
+## 122. Best Time to Buy and Sell Stock II
+
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
+
+本题中理解利润拆分是关键点！ 不要整块的去看，而是把整体利润拆为每天的利润
+
+<img width="978" height="572" alt="image" src="https://github.com/user-attachments/assets/cfd072b3-edb1-4880-8aa8-c5af5f4597be" />
+
+收集每天的正利润
+
+```javascript
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function (prices) {
+    let result = 0;
+    for (let i = 1; i < prices.length; i++) {
+        result += Math.max(prices[i] - prices[i - 1], 0); // 收集每天的正利润
+    }
+    return result;
+};
+```
+
+## 55. Jump Game
+
+https://leetcode.com/problems/jump-game/
+
+不用拘泥于每次究竟跳几步，而是看覆盖范围，覆盖范围内一定是可以跳过来的，不用管是怎么跳的
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var canJump = function (nums) {
+    if (nums.length === 1) return true; // 只有一个元素，就是能达到
+    let cover = 0;
+    for (let i = 0; i <= cover; i++) { // 注意这里是小于等于cover
+        cover = Math.max(cover, i + nums[i]);
+        if (cover >= nums.length - 1) {
+            return true; // 说明可以覆盖到终点了
+        }
+    }
+    return false;
+};
+```
+
+## 45. Jump Game II
+
+https://leetcode.com/problems/jump-game-ii/
