@@ -1,5 +1,7 @@
 [贪心算法 part01](https://github.com/8YBY8/leetcode-note/blob/main/greedy.md#%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95-part01)
 
+[贪心算法 part02](https://github.com/8YBY8/leetcode-note/blob/main/greedy.md#%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95-part02)
+
 
 
 # 贪心算法 part01
@@ -100,6 +102,8 @@ var maxSubArray = function (nums) {
 };
 ```
 
+# 贪心算法 part02
+
 ## 122. Best Time to Buy and Sell Stock II
 
 https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
@@ -151,3 +155,28 @@ var canJump = function (nums) {
 ## 45. Jump Game II
 
 https://leetcode.com/problems/jump-game-ii/
+
+移动下标只要遇到当前覆盖最远距离的下标，直接步数加一，不考虑是不是终点的情况
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var jump = function (nums) {
+    let curIndex = 0; // 当前覆盖最远距离下标
+    let nextIndex = 0; // 下一步覆盖最远距离下标
+    let steps = 0; // 记录走的最大步数
+    for (let i = 0; i < nums.length - 1; i++) { // 注意这里是小于nums.size() - 1，这是关键所在
+        nextIndex = Math.max(nums[i] + i, nextIndex); // 更新下一步覆盖最远距离下标
+        if (i === curIndex) { // 遇到当前覆盖最远距离下标
+            curIndex = nextIndex; // 更新当前覆盖最远距离下标（相当于加油了）
+            steps++; // 需要走下一步
+        }
+    }
+
+    return steps;
+};
+```
+
+
