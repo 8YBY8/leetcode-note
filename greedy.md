@@ -297,3 +297,50 @@ var candy = function(ratings) {
     return count
 };
 ```
+
+## 860. Lemonade Change
+
+https://leetcode.com/problems/lemonade-change/
+
+有如下三种情况：
+- 情况一：账单是5，直接收下。
+- 情况二：账单是10，消耗一个5，增加一个10
+- 情况三：账单是20，优先消耗一个10和一个5，如果不够，再消耗三个5
+
+```javascript
+/**
+ * @param {number[]} bills
+ * @return {boolean}
+ */
+var lemonadeChange = function (bills) {
+    let fiveCount = 0
+    let tenCount = 0
+
+    for (let i = 0; i < bills.length; i++) {
+        let bill = bills[i]
+        // 账单是5，直接收下
+        if (bill === 5) {
+            fiveCount += 1
+            // 账单是10，消耗一个5，增加一个10
+        } else if (bill === 10) {
+            if (fiveCount > 0) {
+                fiveCount -= 1
+                tenCount += 1
+            } else {
+                return false
+            }
+            // 账单是20，优先消耗一个10和一个5，如果不够，再消耗三个5
+        } else {
+            if (tenCount > 0 && fiveCount > 0) {
+                tenCount -= 1
+                fiveCount -= 1
+            } else if (fiveCount >= 3) {
+                fiveCount -= 3
+            } else {
+                return false
+            }
+        }
+    }
+    return true
+};
+```
