@@ -263,3 +263,37 @@ var canCompleteCircuit = function (gas, cost) {
     return start
 };
 ```
+
+<img width="1236" height="982" alt="image" src="https://github.com/user-attachments/assets/28c07f93-0fed-479d-81fa-cec7e17aa9f7" />
+
+分两个阶段:
+1. 起点下标1 从左往右，只要 当前 比 左边 大，当前的糖果=左边的糖果 + 1
+2. 起点下标 ratings.length - 2 从右往左， 只要 当前 比 右边 大，此时 当前的糖果应该 取本身的糖果数（符合比它左边大） 和 右边糖果数 + 1 二者的最大值，这样才符合 它比它左边的大，也比它右边大
+
+```javascript
+/**
+ * @param {number[]} ratings
+ * @return {number}
+ */
+var candy = function(ratings) {
+    let candys = new Array(ratings.length).fill(1)
+    // 从前向后
+    for(let i = 1; i < ratings.length; i++) {
+        if(ratings[i] > ratings[i - 1]) {
+            candys[i] = candys[i - 1] + 1
+        }
+    }
+    // 从后向前
+    for(let i = ratings.length - 2; i >= 0; i--) {
+        if(ratings[i] > ratings[i + 1]) {
+            candys[i] = Math.max(candys[i], candys[i + 1] + 1)
+        }
+    }
+    // 统计结果
+    let count = candys.reduce((a, b) => {
+        return a + b
+    })
+
+    return count
+};
+```
