@@ -349,5 +349,29 @@ var lemonadeChange = function (bills) {
 
 https://leetcode.com/problems/queue-reconstruction-by-height/
 
+技巧是确定一边然后贪心另一边，两边一起考虑，就会顾此失彼
 
+```javascript
+/**
+ * @param {number[][]} people
+ * @return {number[][]}
+ */
+var reconstructQueue = function(people) {
+    let queue = []
+    people.sort((a, b ) => {
+        if(b[0] !== a[0]) {
+            return b[0] - a[0] //b - a 是降序排列，在a[0] != b[0]，的狀況會根據h值降序排列
+        } else {
+            return a[1] - b[1] // a - b 是升序排列，故在a[0] == b[0]的狀況下，會根據k值升序排列
+        }
+        
+    })
 
+    for(let i = 0; i < people.length; i++) {
+        queue.splice(people[i][1], 0, people[i]) 
+        // this takes the i-th person and inserts them into queue at the position specified by their second value (people[i][1]).
+        // The second argument to splice means delete 0 elements
+    }
+    return queue
+};
+```
