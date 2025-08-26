@@ -2,6 +2,7 @@
 
 [贪心算法 part02](https://github.com/8YBY8/leetcode-note/blob/main/greedy.md#%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95-part02)
 
+[贪心算法 part03](https://github.com/8YBY8/leetcode-note/blob/main/greedy.md#%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95-part03)
 
 
 # 贪心算法 part01
@@ -220,5 +221,45 @@ var largestSumAfterKNegations = function (nums, k) {
     // 求和
     // 使用箭头函数的隐式返回值时，需使用简写省略花括号，否则要在 a + b 前加上 return
     return nums.reduce((a, b) => a + b);
+};
+```
+
+# 贪心算法 part03
+
+## 134. Gas Station
+
+https://leetcode.com/problems/gas-station/
+
+https://programmercarl.com/0134.%E5%8A%A0%E6%B2%B9%E7%AB%99.html
+
+首先如果总油量减去总消耗大于等于零那么一定可以跑完一圈
+
+局部最优：当前累加`gas[i] - cost[i]`的和`curSum`一旦小于0，起始位置至少要是i+1，因为从i之前开始一定不行。全局最优：找到可以跑一圈的起始位置
+
+```javascript
+/**
+ * @param {number[]} gas
+ * @param {number[]} cost
+ * @return {number}
+ */
+var canCompleteCircuit = function (gas, cost) {
+    const gasLen = gas.length
+    let start = 0
+    let curSum = 0
+    let totalSum = 0
+
+    for (let i = 0; i < gasLen; i++) {
+        curSum += gas[i] - cost[i]
+        totalSum += gas[i] - cost[i]
+        // 当前gas[i] - cost[i]和curSum一旦小于0
+        if (curSum < 0) { 
+            curSum = 0    // curSum从0开始
+            start = i + 1 // 起始位置更新为i+1
+        }
+    }
+
+    if (totalSum < 0) return -1 // 说明怎么走都不可能跑一圈了
+
+    return start
 };
 ```
