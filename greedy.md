@@ -4,6 +4,7 @@
 
 [贪心算法 part03](https://github.com/8YBY8/leetcode-note/blob/main/greedy.md#%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95-part03)
 
+[贪心算法 part04](https://github.com/8YBY8/leetcode-note/blob/main/greedy.md#%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95-part04)
 
 # 贪心算法 part01
 ## 理论基础
@@ -375,3 +376,13 @@ var reconstructQueue = function(people) {
     return queue
 };
 ```
+
+# 贪心算法 part04
+
+## 452. Minimum Number of Arrows to Burst Balloons
+
+https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/
+
+<img width="1488" height="938" alt="image" src="https://github.com/user-attachments/assets/54ee0e9d-c86b-4f6d-97f5-9c8ce45dddbc" />
+
+
