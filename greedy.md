@@ -383,6 +383,34 @@ var reconstructQueue = function(people) {
 
 https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/
 
+https://programmercarl.com/0452.%E7%94%A8%E6%9C%80%E5%B0%91%E6%95%B0%E9%87%8F%E7%9A%84%E7%AE%AD%E5%BC%95%E7%88%86%E6%B0%94%E7%90%83.html
+
 <img width="1488" height="938" alt="image" src="https://github.com/user-attachments/assets/54ee0e9d-c86b-4f6d-97f5-9c8ce45dddbc" />
 
+<img width="812" height="512" alt="image" src="https://github.com/user-attachments/assets/96a572c8-890a-40e9-9f9a-8f4e5f0b6d98" />
 
+
+```javascript
+/**
+ * @param {number[][]} points
+ * @return {number}
+ */
+var findMinArrowShots = function (points) {
+    // 根据气球直径的开始坐标从小到大排序
+    points.sort((a, b) => {
+        return a[0] - b[0]
+    })
+    let result = 1 // points 不为空至少需要一支箭
+    for (let i = 1; i < points.length; i++) {
+        // 气球i和气球i-1不挨着，注意这里不是>=
+        if (points[i][0] > points[i - 1][1]) { 
+            result++ // 需要一支箭
+        // 气球i和气球i-1挨着
+        } else { 
+            points[i][1] = Math.min(points[i - 1][1], points[i][1]) // 更新重叠气球最小右边界
+        }
+    }
+
+    return result
+};
+```
