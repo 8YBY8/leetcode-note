@@ -414,3 +414,78 @@ var findMinArrowShots = function (points) {
     return result
 };
 ```
+
+## 435. Non-overlapping Intervals
+
+https://leetcode.com/problems/non-overlapping-intervals/
+
+https://programmercarl.com/0435.%E6%97%A0%E9%87%8D%E5%8F%A0%E5%8C%BA%E9%97%B4.html
+
+按照右边界排序，从左向右记录非交叉区间的个数。最后用区间总数减去非交叉区间的个数就是需要移除的区间个数了
+
+<img width="1126" height="518" alt="image" src="https://github.com/user-attachments/assets/66801436-df0b-433d-8bf0-3939f0de4da1" />
+
+```javascript
+/**
+ * @param {number[][]} intervals
+ * @return {number}
+ */
+var eraseOverlapIntervals = function (intervals) {
+    // 右边界排序
+    intervals.sort((a, b) => {
+        return a[1] - b[1]
+    })
+
+    let count = 1 // 记录非交叉区间的个数
+    let end = intervals[0][1] // 记录区间分割点
+
+    for (let i = 1; i < intervals.length; i++) {
+        let interval = intervals[i]
+        if (interval[0] >= end) { //重叠情况
+            end = interval[1]
+            count += 1
+        }
+    }
+    // count 记录的是最大非重复区间的个数
+    return intervals.length - count
+};
+```
+
+## 763. Partition Labels
+
+https://leetcode.com/problems/partition-labels/
+
+https://programmercarl.com/0763.%E5%88%92%E5%88%86%E5%AD%97%E6%AF%8D%E5%8C%BA%E9%97%B4.html
+
+可以分为如下两步：
+1. 统计每一个字符最后出现的位置
+2. 从头遍历字符，并更新字符的最远出现下标，如果找到字符最远出现位置下标和当前下标相等了，则找到了分割点
+
+<img width="1430" height="564" alt="image" src="https://github.com/user-attachments/assets/099914a8-b005-40ab-87e0-e721d56a0892" />
+
+```javascript
+/**
+ * @param {string} s
+ * @return {number[]}
+ */
+var partitionLabels = function (s) {
+    let hash = {} // i为字符，hash[s[i]]为字符出现的最后位置
+    // 统计每一个字符最后出现的位置
+    for (let i = 0; i < s.length; i++) {
+        hash[s[i]] = i
+    }
+    let result = []
+    let left = 0
+    let right = 0
+    // 从头遍历字符
+    for (let i = 0; i < s.length; i++) {
+        right = Math.max(right, hash[s[i]]) // 找到字符出现的最远边界
+        // 如果找到字符最远出现位置下标和当前下标相等了，则找到了分割点
+        if (right === i) { 
+            result.push(right - left + 1)
+            left = i + 1
+        }
+    }
+    return result
+};
+```
